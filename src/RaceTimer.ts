@@ -12,7 +12,7 @@ class RaceTimer {
 
     constructor(id: number) {
         this._iID = id;
-        this.iStartTime = gMain.iGameTime;
+        this.iStartTime = client.iGameTime;
     }
 
     public updateTimer(): boolean {
@@ -20,7 +20,7 @@ class RaceTimer {
             return false;
         }
 
-        var iNowTime = gMain.iGameTime;
+        var iNowTime = client.iGameTime;
         if (iNowTime - this.iStartTime >= this.iDelayTime && iNowTime - this.iLastTriggerTime >= this.iTriggerCD) {
             let delta = 0;
             if(this.iLastTriggerTime != 0){

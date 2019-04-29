@@ -54,7 +54,7 @@ class GeGameNet extends Laya.EventDispatcher {
     private _connected(): void {
         console.log("connect success");
         this._isConnected = true;
-        client.loginStep = EnumLoginType.Net_CONNECTED;
+        client.loginStep = EnumLoginType.Login_CONNECTED;
     }
 
     private _onSession(session) {

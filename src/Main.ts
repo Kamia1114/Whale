@@ -28,13 +28,17 @@
 //
 
 /** 启动页 */
-class GameMain {
+class Main {
     // gTableMgr: GeGameTable;
     // gGameUtill: GeGameUtill;
-    gGameScene:GameScene;
+    gGameMain:GameMain;
     gNet: GeGameNet;
     gLoginMgr: LoginMgr;
-    gRaceTimerMgr: RaceTimerMgr
+    gRaceTimerMgr: RaceTimerMgr;
+    gUIMgr:UIMgr;
+
+    public iGameTime = 0;
+    m_RaceTimerMgr: RaceTimerMgr;
 
     constructor() {
         Config.isAlpha = true;
@@ -45,14 +49,17 @@ class GameMain {
         Laya.stage.frameRate = "mouse";
         Laya.stage.bgColor = Define.bgColor;
 
-        //实例各主类
-        
+        //全局类创建
         // gTableMgr = new GeGameTable();
         // gGameUtill = new GeGameUtill();
-        gNet = new GeGameNet();             //网络
-        gLoginMgr = new LoginMgr();         //登录
-        gGameScene = new GameScene();       //主场景
-        gRaceTimerMgr = new RaceTimerMgr(); //游戏更新
+        this.gNet = new GeGameNet();             //网络
+        this.gLoginMgr = new LoginMgr();         //登录
+        this.gGameMain = new GameMain();       //主场景
+        this.gRaceTimerMgr = new RaceTimerMgr(); //跑计时器更新
+        this.gUIMgr = new UIMgr();               //UI管理器
+        //
+        this.m_RaceTimerMgr = new RaceTimerMgr();
+
 
         Define.stat&&Laya.Stat.show();
         Laya.alertGlobalError = true;
@@ -62,7 +69,8 @@ class GameMain {
     public set loginStep(val:number) {
         console.log(val);
         switch(val) {
-            case EnumLoginType.Net_CONNECTED:
+            case EnumLoginType.Login_CONNECTED:
+                //网络连上了，下一步
                 
                 break;
             default :
@@ -79,7 +87,8 @@ class GameMain {
 
     private _updateTime()
     {
-
+        //游戏时间的更新
+        this.m_RaceTimerMgr.update();
     }
 
 
@@ -87,20 +96,22 @@ class GameMain {
 
 // var gTableMgr: GeGameTable;
 // var gGameUtill: GeGameUtill;
-var client: GameMain;
-var gGameScene:GameScene;
+var client: Main;
+var gGameMain:GameMain;
 var gNet: GeGameNet;
 var gLoginMgr: LoginMgr;
 var gRaceTimerMgr: RaceTimerMgr;
+var gUIMgr: UIMgr;
 
 var gNative = new Native(() => {
-    client = window['client'] = new GameMain();
+    client = window['client'] = new Main();
     
     // gTableMgr = client.gTableMgr;
     // gGameUtill = client.gGameUtill;
-    gGameScene = client.gGameScene;
+    gGameMain = client.gGameMain;
     gNet = client.gNet;
     gLoginMgr = client.gLoginMgr;
     gRaceTimerMgr = client.gRaceTimerMgr;
+    gUIMgr = client.gUIMgr;
     gLoginMgr.start();
 });

@@ -1,8 +1,8 @@
 enum LoadStep {
     LoadUIData,
     NAME_WND,
-    TABLE,
-    SCENE,
+    // TABLE,
+    // SCENE,
 }
 /**
  * 登录类
@@ -36,6 +36,7 @@ class LoginMgr {
                 break
             default:
                 Laya.stage.clearTimer(this, this._silenceAutoLoadThings);
+                client.loginStep = EnumLoginType.Login_CONNECTED;
                 break;
         }
     }
@@ -44,8 +45,8 @@ class LoginMgr {
      *  加载UI数据
      */
     public loadUIData(): void {
-
+        //... 暂时没啥需要load
+        this.loadStep++;
     }
-
 
 }

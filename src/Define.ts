@@ -16,10 +16,10 @@ interface GameNet {
     url:string,
 }
 
-/** 商品类型 */
+/** 登录类型 */
 enum EnumLoginType {
     /** 网络接上了 */
-    Net_CONNECTED,
+    Login_CONNECTED,
     /** 配置加载完毕 */
     Config_COMPLETED,
     /** 充值 */
