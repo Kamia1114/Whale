@@ -4,7 +4,7 @@ interface SeWhaleUnitType extends SeUnitType {
     /** 我跟随的id */
     followId: number;
     /** 我的跟随者 */
-    attendant: number;
+    attendant: Array<number>;
     /** 是否是我自己 */
     isSelf: boolean;
 }
