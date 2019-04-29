@@ -31,7 +31,7 @@
 class Main {
     // gTableMgr: GeGameTable;
     // gGameUtill: GeGameUtill;
-    gGameMain:GameMain;
+    // gGameMain:GameMain;
     gNet: GeGameNet;
     gLoginMgr: LoginMgr;
     gRaceTimerMgr: RaceTimerMgr;
@@ -54,7 +54,7 @@ class Main {
         // gGameUtill = new GeGameUtill();
         this.gNet = new GeGameNet();             //网络
         this.gLoginMgr = new LoginMgr();         //登录
-        this.gGameMain = new GameMain();       //主场景
+        // this.gGameMain = new GameMain();       //主场景
         this.gRaceTimerMgr = new RaceTimerMgr(); //跑计时器更新
         this.gUIMgr = new UIMgr();               //UI管理器
         //
@@ -71,9 +71,23 @@ class Main {
         switch(val) {
             case EnumLoginType.Login_CONNECTED:
                 //网络连上了，下一步
-                
+                console.log("login complete");
                 break;
-            default :
+            case EnumLoginType.Config_COMPLETED:
+                //资源加载完毕
+                console.log("config complete");
+                break;
+            case EnumLoginType.Resource_COMPLETED:
+                //资源加载完毕 可以进去了
+                console.log("Resource complete");
+                gUIMgr.openWnd(WT.GAMESCENE_WND);
+                break;
+            case EnumLoginType.Enter_COMPLETED:
+                //走到这 游戏界面进去了
+                console.log("enter complete");
+                break;
+            case EnumLoginType.Game_START:
+                //玩家点击触发游戏开始
                 this.startUpdate();
                 break;
         }
@@ -97,7 +111,7 @@ class Main {
 // var gTableMgr: GeGameTable;
 // var gGameUtill: GeGameUtill;
 var client: Main;
-var gGameMain:GameMain;
+// var gGameMain:GameMain;
 var gNet: GeGameNet;
 var gLoginMgr: LoginMgr;
 var gRaceTimerMgr: RaceTimerMgr;
@@ -108,7 +122,7 @@ var gNative = new Native(() => {
     
     // gTableMgr = client.gTableMgr;
     // gGameUtill = client.gGameUtill;
-    gGameMain = client.gGameMain;
+    // gGameMain = client.gGameMain;
     gNet = client.gNet;
     gLoginMgr = client.gLoginMgr;
     gRaceTimerMgr = client.gRaceTimerMgr;

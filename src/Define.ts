@@ -16,14 +16,18 @@ interface GameNet {
     url:string,
 }
 
-/** 登录类型 */
+/** 登录状态 */
 enum EnumLoginType {
     /** 网络接上了 */
     Login_CONNECTED,
     /** 配置加载完毕 */
     Config_COMPLETED,
-    /** 充值 */
-    Charge,
+    /** 资源加载完毕 */
+    Resource_COMPLETED,
+    /** 界面进去了 */
+    Enter_COMPLETED,
+    /** 玩家点击开始 */
+    Game_START,
 }
 
 //窗口

@@ -21,7 +21,10 @@ module UI {
         }
         
         private _startApp() {
-            this._iself = new whaleUnit(this.__iData);
+            //new自己
+            // this._iself = new whaleUnit(this.__iData);
+            let img = new Laya.Image("whale/whale.png");
+            this.addChild(img);
         }
     }
 }

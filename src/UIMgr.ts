@@ -8,6 +8,9 @@ class UIMgr {
     private _mask: ui.gui.GuiMaskUI;
 
     constructor() {
+        this.m_kUIEventMgr = {};
+        this.m_eventLock = {};
+        this.m_wndBaseHash = [];
         this.uiLayer = new Layer();
         this.uiLayer.init(EnumLayerName.Bg, EnumLayerName.BgEffect, EnumLayerName.Scene, EnumLayerName.Effect, EnumLayerName.GUI, EnumLayerName.Pop, EnumLayerName.Top);
         Laya.stage.addChild(this.uiLayer);
@@ -16,7 +19,7 @@ class UIMgr {
 
     private registerAllWnd()
     {
-        
+        this.registerWnd(WT.GAMESCENE_WND, UI.GameSceneWnd, EnumLayerName.Scene);
     }
 
     private registerWnd(name: WT, wndType: any, layerName:string) {

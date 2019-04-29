@@ -8,7 +8,7 @@ class GameConfig{
     static screenMode:string="vertical";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any=ui.GameSceneUI;
+    // static startScene:any=ui.GameSceneUI;
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=false;
