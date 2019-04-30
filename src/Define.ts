@@ -26,8 +26,6 @@ enum EnumLoginType {
     Resource_COMPLETED,
     /** 界面进去了 */
     Enter_COMPLETED,
-    /** 玩家点击开始 */
-    Game_START,
 }
 
 //窗口

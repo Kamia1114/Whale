@@ -36,6 +36,9 @@ class Main {
     gLoginMgr: LoginMgr;
     gRaceTimerMgr: RaceTimerMgr;
     gUIMgr:UIMgr;
+    gResMgr: ResMgr;
+    loaderMgr: LoaderManager;
+
 
     public iGameTime = 0;
     m_RaceTimerMgr: RaceTimerMgr;
@@ -59,6 +62,8 @@ class Main {
         this.gUIMgr = new UIMgr();               //UI管理器
         //
         this.m_RaceTimerMgr = new RaceTimerMgr();
+        this.gResMgr = new ResMgr();
+        this.loaderMgr = new LoaderManager();
 
 
         Define.stat&&Laya.Stat.show();
@@ -86,24 +91,10 @@ class Main {
                 //走到这 游戏界面进去了
                 console.log("enter complete");
                 break;
-            case EnumLoginType.Game_START:
-                //玩家点击触发游戏开始
-                this.startUpdate();
-                break;
         }
     }
 
-    //游戏开始时注册一些主循环update
-    public startUpdate(): void {
-        //更新单位动作,分开更新因为这个频率要高些
-        Laya.timer.loop(Define.FrameTime, this, this._updateTime);
-    }
 
-    private _updateTime()
-    {
-        //游戏时间的更新
-        this.m_RaceTimerMgr.update();
-    }
 
 
 }
@@ -116,6 +107,8 @@ var gNet: GeGameNet;
 var gLoginMgr: LoginMgr;
 var gRaceTimerMgr: RaceTimerMgr;
 var gUIMgr: UIMgr;
+var gResMgr: ResMgr;
+var loaderMgr: LoaderManager;
 
 var gNative = new Native(() => {
     client = window['client'] = new Main();
@@ -127,5 +120,7 @@ var gNative = new Native(() => {
     gLoginMgr = client.gLoginMgr;
     gRaceTimerMgr = client.gRaceTimerMgr;
     gUIMgr = client.gUIMgr;
+    gResMgr = client.gResMgr;
+    loaderMgr = client.loaderMgr;
     gLoginMgr.start();
 });

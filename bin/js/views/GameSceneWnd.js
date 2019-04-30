@@ -32,11 +32,12 @@ var UI;
         GameSceneWnd.prototype._startApp = function () {
             //new自己
             // this._iself = new whaleUnit(this.__iData);
-            var img = new Laya.Image("whale/whale.png");
-            this.addChild(img);
+            // let img = new Laya.Image("whale/whale.png");
+            // this.addChild(img);
+            client.loginStep = EnumLoginType.Enter_COMPLETED;
         };
         return GameSceneWnd;
-    }(ui.GameSceneUI));
+    }(ui.gui.GameSceneUI));
     UI.GameSceneWnd = GameSceneWnd;
 })(UI || (UI = {}));
 //# sourceMappingURL=GameSceneWnd.js.map

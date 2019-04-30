@@ -1,1 +1,1 @@
-{"frames":{"star.png":{"frame":{"h":50,"idx":0,"w":50,"x":57,"y":0},"sourceSize":{"h":50,"w":50},"spriteSourceSize":{"x":0,"y":0}},"texture.png":{"frame":{"h":54,"idx":0,"w":56,"x":0,"y":0},"sourceSize":{"h":64,"w":64},"spriteSourceSize":{"x":4,"y":5}}},"meta":{"image":"particle.png","prefix":"particle/"}}
+{"frames":{"star.png":{"frame":{"h":50,"idx":0,"w":50,"x":0,"y":0},"sourceSize":{"h":50,"w":50},"spriteSourceSize":{"x":0,"y":0}}},"meta":{"image":"particle.png","prefix":"particle/"}}

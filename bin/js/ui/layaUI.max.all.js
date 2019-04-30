@@ -15,19 +15,22 @@ var View = laya.ui.View;
 var Dialog = laya.ui.Dialog;
 var ui;
 (function (ui) {
-    var GameSceneUI = /** @class */ (function (_super) {
-        __extends(GameSceneUI, _super);
-        function GameSceneUI() {
-            return _super.call(this) || this;
-        }
-        GameSceneUI.prototype.createChildren = function () {
-            _super.prototype.createChildren.call(this);
-            this.createView(ui.GameSceneUI.uiView);
-        };
-        GameSceneUI.uiView = { "type": "View", "props": { "width": 750, "height": 1334 }, "compId": 1, "child": [{ "type": "Panel", "props": { "top": 0, "right": 0, "left": 0, "bottom": 0 }, "compId": 3 }], "loadList": [], "loadList3D": [] };
-        return GameSceneUI;
-    }(View));
-    ui.GameSceneUI = GameSceneUI;
+    var gui;
+    (function (gui) {
+        var GameSceneUI = /** @class */ (function (_super) {
+            __extends(GameSceneUI, _super);
+            function GameSceneUI() {
+                return _super.call(this) || this;
+            }
+            GameSceneUI.prototype.createChildren = function () {
+                _super.prototype.createChildren.call(this);
+                this.createView(ui.gui.GameSceneUI.uiView);
+            };
+            GameSceneUI.uiView = { "type": "View", "props": { "width": 750, "height": 1334 }, "compId": 1, "child": [{ "type": "Panel", "props": { "top": 0, "right": 0, "left": 0, "bottom": 0 }, "compId": 3 }, { "type": "Image", "props": { "y": 659, "x": 344.5, "skin": "whale/whale.png" }, "compId": 6 }], "loadList": ["whale/whale.png"], "loadList3D": [] };
+            return GameSceneUI;
+        }(Laya.View));
+        gui.GameSceneUI = GameSceneUI;
+    })(gui = ui.gui || (ui.gui = {}));
 })(ui || (ui = {}));
 (function (ui) {
     var gui;
@@ -43,7 +46,7 @@ var ui;
             };
             GuiMaskUI.uiView = { "type": "View", "props": { "width": 750, "top": 0, "right": 0, "mouseThrough": false, "left": 0, "height": 1334, "bottom": 0 }, "compId": 1, "child": [{ "type": "Sprite", "props": { "var": "spMask", "alpha": 0.5 }, "compId": 2 }], "loadList": [], "loadList3D": [] };
             return GuiMaskUI;
-        }(View));
+        }(Laya.View));
         gui.GuiMaskUI = GuiMaskUI;
     })(gui = ui.gui || (ui.gui = {}));
 })(ui || (ui = {}));

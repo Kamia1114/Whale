@@ -46,6 +46,8 @@ var Main = /** @class */ (function () {
         this.gUIMgr = new UIMgr(); //UI管理器
         //
         this.m_RaceTimerMgr = new RaceTimerMgr();
+        this.gResMgr = new ResMgr();
+        this.loaderMgr = new LoaderManager();
         Define.stat && Laya.Stat.show();
         Laya.alertGlobalError = true;
     }
@@ -98,6 +100,8 @@ var gNet;
 var gLoginMgr;
 var gRaceTimerMgr;
 var gUIMgr;
+var gResMgr;
+var loaderMgr;
 var gNative = new Native(function () {
     client = window['client'] = new Main();
     // gTableMgr = client.gTableMgr;
@@ -107,6 +111,8 @@ var gNative = new Native(function () {
     gLoginMgr = client.gLoginMgr;
     gRaceTimerMgr = client.gRaceTimerMgr;
     gUIMgr = client.gUIMgr;
+    gResMgr = client.gResMgr;
+    loaderMgr = client.loaderMgr;
     gLoginMgr.start();
 });
 //# sourceMappingURL=Main.js.map
