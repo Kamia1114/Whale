@@ -3,5 +3,5 @@ class Map extends Laya.Sprite {
         super(); 
     }
 
-
+    
 }
