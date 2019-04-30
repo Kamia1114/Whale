@@ -25,6 +25,8 @@ var whaleUnit = /** @class */ (function (_super) {
         this.addChild(this._body);
         this._body.width = 61;
         this._body.height = 105;
+        this._body.anchorX = 0.5;
+        this._body.anchorY = 0.5;
     };
     whaleUnit.prototype._update = function (info) {
         for (var key in info) {

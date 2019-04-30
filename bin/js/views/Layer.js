@@ -37,12 +37,7 @@ var Layer = /** @class */ (function (_super) {
         }
     };
     Layer.prototype.getLayer = function (layerName) {
-        var arr = layerName.split(".");
-        var layer = this.getChildByName(arr.shift());
-        while (layer && arr.length > 0) {
-            layer = layer.getChildByName(arr.shift());
-        }
-        return layer;
+        return this.getChildByName(layerName);
     };
     Layer.prototype.addToLayer = function (mc, layerName, index) {
         if (layerName === void 0) { layerName = ""; }
@@ -58,14 +53,4 @@ var Layer = /** @class */ (function (_super) {
     };
     return Layer;
 }(Laya.Component));
-//层级类型
-var EnumLayerName = {
-    Top: "top",
-    Pop: "pop",
-    GUI: "gui",
-    Effect: "Effect",
-    Scene: "scene",
-    BgEffect: "bgEffect",
-    Bg: "bg",
-};
 //# sourceMappingURL=Layer.js.map

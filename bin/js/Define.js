@@ -11,6 +11,16 @@ var Define = /** @class */ (function () {
     Define.FrameTime = 33; //逻辑一帧的时间
     return Define;
 }());
+//Layer.ts 层级类型
+var EnumLayerName = {
+    Top: "top",
+    Pop: "pop",
+    GUI: "gui",
+    Effect: "Effect",
+    Scene: "scene",
+    BgEffect: "bgEffect",
+    Bg: "bg",
+};
 /** 登录状态 */
 var EnumLoginType;
 (function (EnumLoginType) {
@@ -22,8 +32,6 @@ var EnumLoginType;
     EnumLoginType[EnumLoginType["Resource_COMPLETED"] = 2] = "Resource_COMPLETED";
     /** 界面进去了 */
     EnumLoginType[EnumLoginType["Enter_COMPLETED"] = 3] = "Enter_COMPLETED";
-    /** 玩家点击开始 */
-    EnumLoginType[EnumLoginType["Game_START"] = 4] = "Game_START";
 })(EnumLoginType || (EnumLoginType = {}));
 //窗口
 var WT;
@@ -32,4 +40,38 @@ var WT;
     WT[WT["GAMESCENE_WND"] = 0] = "GAMESCENE_WND";
     //
 })(WT || (WT = {}));
+var HashMap = /** @class */ (function () {
+    function HashMap(_data) {
+        this._data = {};
+        if (_data) {
+            this._data = _data;
+        }
+    }
+    HashMap.prototype.get = function (key) {
+        return this._data[key];
+    };
+    HashMap.prototype.add = function (key, v) {
+        if (!this._data[key]) {
+            this._data[key] = [];
+        }
+        this._data[key].push(v);
+    };
+    HashMap.prototype.set = function (key, v) {
+        this._data[key] = v;
+    };
+    Object.defineProperty(HashMap.prototype, "keys", {
+        get: function () {
+            return Object.keys(this._data);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    HashMap.prototype.del = function (key) {
+        delete this._data[key];
+    };
+    HashMap.prototype.clear = function () {
+        this._data = {};
+    };
+    return HashMap;
+}());
 //# sourceMappingURL=Define.js.map

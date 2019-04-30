@@ -19,6 +19,8 @@ class whaleUnit extends baseUnit{
         this.addChild(this._body);
         this._body.width = 61;
         this._body.height = 105;
+        this._body.anchorX = 0.5;
+        this._body.anchorY = 0.5;
     }
 
     protected _update(info:any)

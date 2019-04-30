@@ -31,6 +31,7 @@ module UI {
         {
             this.initUI();
             this.initEvent();
+            this.initEffect();
         }
 
         private initUI() {
@@ -46,9 +47,11 @@ module UI {
             let txt :Laya.Label = new Laya.Label();
             txt.color = "#FFFFFF";
             txt.fontSize = 34;
-            txt.x = Laya.stage.width / 2;
+            txt.anchorX = txt.anchorY = 0.5;
+            txt.x = Laya.stage.width / 2 - txt.width/2;
             txt.y = Laya.stage.height / 2;
             txt.text = "点击任意 开始游戏";
+            gUIMgr.addToLayer(txt, EnumLayerName.Top);
         }
 
         private initEvent()
@@ -57,12 +60,18 @@ module UI {
             Laya.stage.once(Laya.Event.MOUSE_DOWN, this, this.start);
         }
 
+        private initEffect()
+        {
+            
+        }
+
         //游戏开始时注册一些主循环update
         public start(): void {
             //控制器开始跑了
             this._mCtl.start();
             //这里UI把提示去掉
-            
+            let ly: Layer = gUIMgr.uiLayer.getLayer(EnumLayerName.Top) as Layer;
+            ly.removeChildren();
         }
 
     }

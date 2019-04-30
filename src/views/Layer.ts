@@ -20,12 +20,7 @@ class Layer extends Laya.Component {
     }
 
     public getLayer(layerName: string) {
-        var arr = layerName.split(".");
-        var layer = this.getChildByName(arr.shift());
-        while (layer && arr.length > 0) {
-            layer = layer.getChildByName(arr.shift());
-        }
-        return layer;
+        return this.getChildByName(layerName);
     }
 
     public addToLayer(mc: Laya.Node, layerName: string = "", index: number = -1) {
@@ -38,16 +33,4 @@ class Layer extends Laya.Component {
         this.width = Laya.stage.width;
         this.height = Laya.stage.height;
     }
-}
-
-
-//层级类型
-const EnumLayerName = {
-    Top: "top",                 //最顶上，系统通知跑马灯
-    Pop: "pop",                 //弹出提示层
-    GUI: "gui",                 //ui交互层
-    Effect: "Effect",           //场景特效（上）
-    Scene: "scene",             //主场景
-    BgEffect: "bgEffect",       //背景特效
-    Bg: "bg",                   //留着暂时没想到放啥
 }

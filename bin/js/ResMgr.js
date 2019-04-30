@@ -83,38 +83,4 @@ var ResMgr = /** @class */ (function () {
     };
     return ResMgr;
 }());
-var HashMap = /** @class */ (function () {
-    function HashMap(_data) {
-        this._data = {};
-        if (_data) {
-            this._data = _data;
-        }
-    }
-    HashMap.prototype.get = function (key) {
-        return this._data[key];
-    };
-    HashMap.prototype.add = function (key, v) {
-        if (!this._data[key]) {
-            this._data[key] = [];
-        }
-        this._data[key].push(v);
-    };
-    HashMap.prototype.set = function (key, v) {
-        this._data[key] = v;
-    };
-    Object.defineProperty(HashMap.prototype, "keys", {
-        get: function () {
-            return Object.keys(this._data);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HashMap.prototype.del = function (key) {
-        delete this._data[key];
-    };
-    HashMap.prototype.clear = function () {
-        this._data = {};
-    };
-    return HashMap;
-}());
 //# sourceMappingURL=ResMgr.js.map

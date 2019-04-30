@@ -9,6 +9,8 @@ class MovementControl{
     constructor($map:Map, $self:whaleUnit) { 
         this._map = $map;
         this._self = $self;
+        this._self.x = Laya.stage.width/2;
+        this._self.y = Laya.stage.height/2;
         this._map.addChild(this._self);
 
     }
