@@ -281,9 +281,8 @@ var LoaderManager = /** @class */ (function (_super) {
     *@param url 资源地址。
     *@param forceDispose 是否强制销毁，有些资源是采用引用计数方式销毁，如果forceDispose=true，则忽略引用计数，直接销毁，比如Texture，默认为false
     */
-    LoaderManager.prototype.clearRes = function (url, forceDispose) {
-        (forceDispose === void 0) && (forceDispose = false);
-        Laya.Loader.clearRes(url, forceDispose);
+    LoaderManager.prototype.clearRes = function (url) {
+        Laya.Loader.clearRes(url);
     };
     LoaderManager.prototype.clearTextureRes = function (url) {
         Laya.Loader.clearTextureRes(url);

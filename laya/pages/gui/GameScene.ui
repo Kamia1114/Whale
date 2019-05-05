@@ -27,20 +27,6 @@
             "compId":3,
             "child":[
                 ]
-        },
-        {
-            "x":15,
-            "type":"Image",
-            "searchKey":"Image",
-            "props":{"y":659,"x":344.5,"skin":"whale/whale.png"},
-            "nodeParent":1,
-            "label":"Image",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":6,
-            "child":[
-                ]
         }],
     "animations":[
         {

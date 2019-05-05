@@ -28,5 +28,5 @@ var baseUnit = /** @class */ (function (_super) {
     baseUnit.prototype._update = function (info) {
     };
     return baseUnit;
-}(Laya.Component));
+}(Laya.Sprite));
 //# sourceMappingURL=baseUnit.js.map

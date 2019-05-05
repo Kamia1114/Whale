@@ -24,9 +24,8 @@ var ui;
             }
             GameSceneUI.prototype.createChildren = function () {
                 _super.prototype.createChildren.call(this);
-                this.createView(ui.gui.GameSceneUI.uiView);
+                this.loadScene("gui/GameScene");
             };
-            GameSceneUI.uiView = { "type": "View", "props": { "width": 750, "height": 1334 }, "compId": 1, "child": [{ "type": "Panel", "props": { "top": 0, "right": 0, "left": 0, "bottom": 0 }, "compId": 3 }, { "type": "Image", "props": { "y": 659, "x": 344.5, "skin": "whale/whale.png" }, "compId": 6 }], "loadList": ["whale/whale.png"], "loadList3D": [] };
             return GameSceneUI;
         }(Laya.View));
         gui.GameSceneUI = GameSceneUI;
@@ -42,9 +41,8 @@ var ui;
             }
             GuiMaskUI.prototype.createChildren = function () {
                 _super.prototype.createChildren.call(this);
-                this.createView(ui.gui.GuiMaskUI.uiView);
+                this.loadScene("gui/GuiMask");
             };
-            GuiMaskUI.uiView = { "type": "View", "props": { "width": 750, "top": 0, "right": 0, "mouseThrough": false, "left": 0, "height": 1334, "bottom": 0 }, "compId": 1, "child": [{ "type": "Sprite", "props": { "var": "spMask", "alpha": 0.5 }, "compId": 2 }], "loadList": [], "loadList3D": [] };
             return GuiMaskUI;
         }(Laya.View));
         gui.GuiMaskUI = GuiMaskUI;

@@ -52,12 +52,16 @@ var Layer = /** @class */ (function (_super) {
             layer = this;
         index > 0 ? layer.addChildAt(mc, index) : layer.addChild(mc);
     };
+    Layer.prototype.removeLayerByName = function (layerName) {
+        var layer = this.getChildByName(layerName);
+        layer.removeChildren();
+    };
     Layer.prototype._onResize = function () {
         this.width = Laya.stage.width;
         this.height = Laya.stage.height;
     };
     return Layer;
-}(Laya.Component));
+}(Laya.Sprite));
 //层级类型
 var EnumLayerName = {
     Top: "top",

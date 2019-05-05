@@ -4,12 +4,12 @@
 var GameConfig = /** @class */ (function () {
     function GameConfig() {
     }
-    GameConfig.width = 1136;
-    GameConfig.height = 640;
+    GameConfig.width = 750;
+    GameConfig.height = 1334;
     GameConfig.scaleMode = "showall";
     GameConfig.screenMode = "vertical";
-    GameConfig.alignV = "top";
-    GameConfig.alignH = "left";
+    GameConfig.alignV = "middle";
+    GameConfig.alignH = "center";
     GameConfig.startScene = ui.gui.GameSceneUI;
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;

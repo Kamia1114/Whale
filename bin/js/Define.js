@@ -22,8 +22,6 @@ var EnumLoginType;
     EnumLoginType[EnumLoginType["Resource_COMPLETED"] = 2] = "Resource_COMPLETED";
     /** 界面进去了 */
     EnumLoginType[EnumLoginType["Enter_COMPLETED"] = 3] = "Enter_COMPLETED";
-    /** 玩家点击开始 */
-    EnumLoginType[EnumLoginType["Game_START"] = 4] = "Game_START";
 })(EnumLoginType || (EnumLoginType = {}));
 //窗口
 var WT;

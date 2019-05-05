@@ -24,8 +24,6 @@ var RaceTimerMgr = /** @class */ (function () {
                 continue;
             }
             if (!timer.callback || timer.callback.caller == undefined) {
-                //this.arrayTimer[idx] = null;
-                //this.arrayTimer.splice(idx, 1);
                 this._addToFree(timer);
                 delete this.allTimer[key];
             }
@@ -33,8 +31,6 @@ var RaceTimerMgr = /** @class */ (function () {
                 var bUpdate = timer.updateTimer();
                 if (bUpdate && timer.iRepeatTimes && timer.iRepeatTimes > 0) {
                     if (--timer.iRepeatTimes == 0 || timer.needRemove) {
-                        // this.arrayTimer[idx] = null;
-                        // this.arrayTimer.splice(idx, 1);
                         this._addToFree(timer);
                         delete this.allTimer[key];
                     }
@@ -80,7 +76,6 @@ var RaceTimerMgr = /** @class */ (function () {
         if (!timer)
             return;
         timer.destroy();
-        // this._freeList.push(timer);
     };
     return RaceTimerMgr;
 }());

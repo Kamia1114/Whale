@@ -4,13 +4,17 @@
 class MovementControl{
 
     private _map: Map;
-    private _self: whaleUnit;
+    private _uSelf: whaleUnit;
+
+    //起始位置
+    private _mapPoint: Laya.Point;
 
     constructor($map:Map, $self:whaleUnit) { 
         this._map = $map;
-        this._self = $self;
-        this._map.addChild(this._self);
-
+        this._uSelf = $self;
+        this._uSelf.x = 650;
+        this._uSelf.y = 380;
+        this._map.addChild(this._uSelf);
     }
     
     public start() {

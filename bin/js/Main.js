@@ -72,24 +72,11 @@ var Main = /** @class */ (function () {
                     //走到这 游戏界面进去了
                     console.log("enter complete");
                     break;
-                case EnumLoginType.Game_START:
-                    //玩家点击触发游戏开始
-                    this.startUpdate();
-                    break;
             }
         },
         enumerable: true,
         configurable: true
     });
-    //游戏开始时注册一些主循环update
-    Main.prototype.startUpdate = function () {
-        //更新单位动作,分开更新因为这个频率要高些
-        Laya.timer.loop(Define.FrameTime, this, this._updateTime);
-    };
-    Main.prototype._updateTime = function () {
-        //游戏时间的更新
-        this.m_RaceTimerMgr.update();
-    };
     return Main;
 }());
 // var gTableMgr: GeGameTable;
