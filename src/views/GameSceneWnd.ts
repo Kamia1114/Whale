@@ -38,20 +38,31 @@ module UI {
         private initUI() {
             //地图
             this._map = new Map();
+            this._map.x = this._map.y = 0;
+            this.addChild(this._map);
             //new自己
             this._iself = new whaleUnit(this.__iData);
-            this.addChild(this._map);
             //把元素给控制器
             this._mCtl = new MovementControl(this._map, this._iself);
-
+            //开始提示
             let txt :Laya.Label = new Laya.Label();
             txt.color = "#FFFFFF";
             txt.fontSize = 34;
             txt.anchorX = txt.anchorY = 0.5;
             txt.x = Laya.stage.width / 2 - txt.width/2;
             txt.y = Laya.stage.height / 2;
+            txt.anchorX = 0.5;
             txt.text = "点击任意 开始游戏";
             gUIMgr.addToLayer(txt, EnumLayerName.Top);
+        }
+
+        //游戏开始时注册一些主循环update
+        public start(): void {
+            //这里UI把提示去掉
+            gUIMgr.uiLayer.removeLayerByName(EnumLayerName.Top);
+            //控制器开始跑了
+            this._mCtl.start();
+            this.initEvent();
         }
 
         private initEvent()
@@ -60,16 +71,6 @@ module UI {
             this.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
             this.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
             this.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
-        }
-
-        //游戏开始时注册一些主循环update
-        public start(): void {
-            //这里UI把提示去掉
-            let ly: Layer = gUIMgr.uiLayer.getLayer(EnumLayerName.Top) as Layer;
-            ly.removeChildren();
-            //控制器开始跑了
-            this._mCtl.start();
-            this.initEvent();
         }
 
         private mouseHandler(e:Laya.Event)

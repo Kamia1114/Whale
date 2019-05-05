@@ -47,10 +47,28 @@ var Layer = /** @class */ (function (_super) {
             layer = this;
         index > 0 ? layer.addChildAt(mc, index) : layer.addChild(mc);
     };
+    Layer.prototype.removeLayerByName = function (layerName) {
+        var layer = this.getChildByName(layerName);
+        layer.removeChildren();
+    };
     Layer.prototype._onResize = function () {
         this.width = Laya.stage.width;
         this.height = Laya.stage.height;
     };
     return Layer;
+<<<<<<< HEAD
+}(Laya.Sprite));
+//层级类型
+var EnumLayerName = {
+    Top: "top",
+    Pop: "pop",
+    GUI: "gui",
+    Effect: "Effect",
+    Scene: "scene",
+    BgEffect: "bgEffect",
+    Bg: "bg",
+};
+=======
 }(Laya.Component));
+>>>>>>> f3882855fd199c7c55e8efd37b81a2c7e2dd0a58
 //# sourceMappingURL=Layer.js.map

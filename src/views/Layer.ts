@@ -1,7 +1,7 @@
 /*
 * name;
 */
-class Layer extends Laya.Component {
+class Layer extends Laya.Sprite {
     constructor() {
         super();
         Laya.stage.on(Laya.Event.RESIZE, this, this._onResize);
@@ -27,6 +27,11 @@ class Layer extends Laya.Component {
         var layer = this.getChildByName(layerName);
         if (!layer) layer = this;
         index > 0 ? layer.addChildAt(mc, index) : layer.addChild(mc);
+    }
+
+    public removeLayerByName(layerName: string) {
+        var layer = this.getChildByName(layerName);
+        layer.removeChildren();
     }
 
     protected _onResize() {

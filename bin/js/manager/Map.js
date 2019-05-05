@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -18,4 +19,26 @@ var Map = /** @class */ (function (_super) {
     }
     return Map;
 }(Laya.Sprite));
+=======
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Map = /** @class */ (function (_super) {
+    __extends(Map, _super);
+    function Map() {
+        return _super.call(this) || this;
+    }
+    return Map;
+}(Laya.Sprite));
+>>>>>>> f3882855fd199c7c55e8efd37b81a2c7e2dd0a58
 //# sourceMappingURL=Map.js.map
