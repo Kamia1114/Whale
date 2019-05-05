@@ -20,4 +20,6 @@ interface SeUnitType {
     inertia: number;
     /** 当前速度 */
     speed: number;
+    /** map ID */
+    mapId: number;
 }

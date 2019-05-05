@@ -7,13 +7,17 @@ class MovementControl{
     //起始位置
     private _mapPoint: Laya.Point;
     //
+    private _myStartPoint: Laya.Point;
 
     constructor($map:Map, $self:whaleUnit) { 
         this._map = $map;
         this._uSelf = $self;
-        this._uSelf.x = 380;
-        this._uSelf.y = 650;
+        this._uSelf.x = Define.stageWidth/2;
+        this._uSelf.y = Define.stageHeight/2;
         this._map.addChild(this._uSelf);
+
+        this._mapPoint = new Laya.Point(Define.stageWidth/2, Define.stageHeight/2);
+        
     }
     
     public start() {
@@ -24,6 +28,14 @@ class MovementControl{
     private _updateTime()
     {
         //游戏时间按帧更新
-        
+        this._uSelf.x = this._uSelf.uPoint.x;
+        this._uSelf.y = this._uSelf.uPoint.y;
     }
+
+    // private _getCurPoint() :Laya.Point
+    // {
+    //     if(this._uSelf.isChange) {
+    //         return 
+    //     }
+    // }
 }

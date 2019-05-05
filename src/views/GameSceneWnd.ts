@@ -19,7 +19,7 @@ module UI {
         private _roleList: HashMap<whaleUnit>;
 
         //下边放本地自测数据
-        private __iData: SeWhaleUnitType = {skin:"0", followId:0, attendant:[], isSelf:true, kId:1, point: new Laya.Point(0, 0), angle:0, inertia:10, speed:0}
+        private __iData: SeWhaleUnitType = {skin:"0", followId:0, attendant:[], isSelf:true, kId:1, point: new Laya.Point(1255, 0), angle:0, inertia:10, speed:0, mapId:1}
 
         constructor() { 
             super();
