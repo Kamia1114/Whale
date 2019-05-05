@@ -12,8 +12,15 @@ class Define{
     }
 }
 
-interface GameNet {
-    url:string,
+//Layer.ts 层级类型
+const EnumLayerName = {
+    Top: "top",                 //最顶上，系统通知跑马灯
+    Pop: "pop",                 //弹出提示层
+    GUI: "gui",                 //ui交互层
+    Effect: "Effect",           //场景特效（上）
+    Scene: "scene",             //主场景
+    BgEffect: "bgEffect",       //背景特效
+    Bg: "bg",                   //留着暂时没想到放啥
 }
 
 /** 登录状态 */
@@ -33,4 +40,43 @@ enum WT {
     //主场景
     GAMESCENE_WND
     //
+}
+
+
+class HashMap<T>{
+    _data = {};
+
+    constructor(_data?: Object) {
+        if (_data) {
+            this._data = _data;
+        }
+    }
+
+    get(key: string | number) {
+        return <Array<T>>this._data[key]
+    }
+
+    add(key: string | number, v: T) {
+        if (!this._data[key]) {
+            this._data[key] = [];
+        }
+
+        this._data[key].push(v);
+    }
+
+    set(key: string | number, v: Array<T>) {
+        this._data[key] = v;
+    }
+
+    get keys() {
+        return Object.keys(this._data);
+    }
+
+    del(key: string | number) {
+        delete this._data[key];
+    }
+
+    clear() {
+        this._data = {};
+    }
 }

@@ -26,6 +26,7 @@ class UIMgr {
         this.m_wndBaseHash[name] = new UIBase(name, wndType, layerName);
     }
 
+    /** 不要直接调用 */
     public addToLayer(mc: Laya.Node, layerName: string = "", index: number = -1) {
         this.uiLayer.addToLayer(mc, layerName, index);
     }

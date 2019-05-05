@@ -16,6 +16,7 @@ var UIMgr = /** @class */ (function () {
     UIMgr.prototype.registerWnd = function (name, wndType, layerName) {
         this.m_wndBaseHash[name] = new UIBase(name, wndType, layerName);
     };
+    /** 不要直接调用 */
     UIMgr.prototype.addToLayer = function (mc, layerName, index) {
         if (layerName === void 0) { layerName = ""; }
         if (index === void 0) { index = -1; }

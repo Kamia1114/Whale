@@ -26,8 +26,12 @@ var ui;
                 _super.prototype.createChildren.call(this);
                 this.loadScene("gui/GameScene");
             };
+<<<<<<< HEAD
+=======
+            GameSceneUI.uiView = { "type": "View", "props": { "width": 750, "height": 1334 }, "compId": 1, "child": [{ "type": "Panel", "props": { "top": 0, "right": 0, "left": 0, "bottom": 0 }, "compId": 3 }], "loadList": [], "loadList3D": [] };
+>>>>>>> f3882855fd199c7c55e8efd37b81a2c7e2dd0a58
             return GameSceneUI;
-        }(Laya.View));
+        }(View));
         gui.GameSceneUI = GameSceneUI;
     })(gui = ui.gui || (ui.gui = {}));
 })(ui || (ui = {}));
@@ -44,7 +48,7 @@ var ui;
                 this.loadScene("gui/GuiMask");
             };
             return GuiMaskUI;
-        }(Laya.View));
+        }(View));
         gui.GuiMaskUI = GuiMaskUI;
     })(gui = ui.gui || (ui.gui = {}));
 })(ui || (ui = {}));
