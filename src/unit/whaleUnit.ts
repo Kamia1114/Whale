@@ -4,6 +4,7 @@
 class whaleUnit extends baseUnit{
 
     protected _data:SeWhaleUnitType;
+    private _isChange:boolean;
 
     private _body:Laya.Image;
     private _isSelf:boolean;
@@ -26,7 +27,21 @@ class whaleUnit extends baseUnit{
     protected _update(info:any)
     {
         for (var key in info){
-            this._data[key] = info[key];
+            if(!this._data[key] || this._data[key] != info[key]) {
+                //数据变动了
+                this._data[key] = info[key];
+                this._isChange = true;
+            }
         }
+    }
+
+    public set isChange(val:boolean)
+    {
+        this._isChange = val;
+    }
+
+    public get isChange():boolean
+    {
+        return this._isChange;
     }
 }

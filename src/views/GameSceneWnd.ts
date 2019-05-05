@@ -30,8 +30,9 @@ module UI {
         private init()
         {
             this.initUI();
-            this.initEvent();
-            this.initEffect();
+            // this.initEvent();
+            //点了代码启动
+            Laya.stage.once(Laya.Event.MOUSE_DOWN, this, this.start);
         }
 
         private initUI() {
@@ -42,7 +43,6 @@ module UI {
             this.addChild(this._map);
             //把元素给控制器
             this._mCtl = new MovementControl(this._map, this._iself);
-
 
             let txt :Laya.Label = new Laya.Label();
             txt.color = "#FFFFFF";
@@ -56,23 +56,38 @@ module UI {
 
         private initEvent()
         {
-            //点了代码启动
-            Laya.stage.once(Laya.Event.MOUSE_DOWN, this, this.start);
-        }
-
-        private initEffect()
-        {
-            
+            this.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
+            this.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
+            this.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
+            this.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
         }
 
         //游戏开始时注册一些主循环update
         public start(): void {
-            //控制器开始跑了
-            this._mCtl.start();
             //这里UI把提示去掉
             let ly: Layer = gUIMgr.uiLayer.getLayer(EnumLayerName.Top) as Layer;
             ly.removeChildren();
+            //控制器开始跑了
+            this._mCtl.start();
+            this.initEvent();
         }
 
+        private mouseHandler(e:Laya.Event)
+        {
+            switch(e.type) {
+                case Laya.Event.MOUSE_DOWN:
+
+                    break;
+                case Laya.Event.MOUSE_MOVE:
+                    
+                    break;
+                case Laya.Event.MOUSE_UP:
+                    
+                    break;
+                case Laya.Event.MOUSE_OUT:
+                    
+                    break;
+            }
+        }
     }
 }
