@@ -22,25 +22,31 @@ var whaleUnit = /** @class */ (function (_super) {
     whaleUnit.prototype._init = function () {
         this._body = new Laya.Image("whale/whale" + this._data.skin + ".png");
         this.addChild(this._body);
-<<<<<<< HEAD
-        // this._body.width = 30;
-        // this._body.height = 52;
         this._body.anchorX = 0.5;
         this._body.anchorY = 0.5;
         this._body.x = Laya.stage.width / 2;
         this._body.y = Laya.stage.height / 2;
-=======
-        this._body.width = 61;
-        this._body.height = 105;
-        this._body.anchorX = 0.5;
-        this._body.anchorY = 0.5;
->>>>>>> f3882855fd199c7c55e8efd37b81a2c7e2dd0a58
+        this._body.scale(0.5, 0.5);
     };
     whaleUnit.prototype._update = function (info) {
         for (var key in info) {
-            this._data[key] = info[key];
+            if (!this._data[key] || this._data[key] != info[key]) {
+                //数据变动了
+                this._data[key] = info[key];
+                this._isChange = true;
+            }
         }
     };
+    Object.defineProperty(whaleUnit.prototype, "isChange", {
+        get: function () {
+            return this._isChange;
+        },
+        set: function (val) {
+            this._isChange = val;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(whaleUnit.prototype, "uPoint", {
         get: function () {
             return this._data.point;

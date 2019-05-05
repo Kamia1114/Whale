@@ -32,53 +32,55 @@ var UI;
         }
         GameSceneWnd.prototype.init = function () {
             this.initUI();
-            this.initEvent();
+            // this.initEvent();
+            //点了代码启动
+            Laya.stage.once(Laya.Event.MOUSE_DOWN, this, this.start);
         };
         GameSceneWnd.prototype.initUI = function () {
             //地图
             this._map = new Map();
-<<<<<<< HEAD
             this._map.x = this._map.y = 0;
             this.addChild(this._map);
             //new自己
             this._iself = new whaleUnit(this.__iData);
-=======
-            //new自己
-            this._iself = new whaleUnit(this.__iData);
-            this.addChild(this._map);
->>>>>>> f3882855fd199c7c55e8efd37b81a2c7e2dd0a58
             //把元素给控制器
             this._mCtl = new MovementControl(this._map, this._iself);
+            //开始提示
             var txt = new Laya.Label();
             txt.color = "#FFFFFF";
             txt.fontSize = 34;
-<<<<<<< HEAD
-            txt.x = Laya.stage.width / 2;
-            txt.y = Laya.stage.height / 2;
-            txt.anchorX = 0.5;
-=======
             txt.anchorX = txt.anchorY = 0.5;
             txt.x = Laya.stage.width / 2 - txt.width / 2;
             txt.y = Laya.stage.height / 2;
->>>>>>> f3882855fd199c7c55e8efd37b81a2c7e2dd0a58
+            txt.anchorX = 0.5;
             txt.text = "点击任意 开始游戏";
             gUIMgr.addToLayer(txt, EnumLayerName.Top);
         };
-        GameSceneWnd.prototype.initEvent = function () {
-            //点了代码启动
-            Laya.stage.once(Laya.Event.MOUSE_DOWN, this, this.start);
-        };
         //游戏开始时注册一些主循环update
         GameSceneWnd.prototype.start = function () {
+            //这里UI把提示去掉
+            gUIMgr.uiLayer.removeLayerByName(EnumLayerName.Top);
             //控制器开始跑了
             this._mCtl.start();
-            //这里UI把提示去掉
-<<<<<<< HEAD
-            gUIMgr.uiLayer.removeLayerByName(EnumLayerName.Top);
-=======
-            var ly = gUIMgr.uiLayer.getLayer(EnumLayerName.Top);
-            ly.removeChildren();
->>>>>>> f3882855fd199c7c55e8efd37b81a2c7e2dd0a58
+            this.initEvent();
+        };
+        GameSceneWnd.prototype.initEvent = function () {
+            this.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
+            this.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
+            this.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
+            this.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
+        };
+        GameSceneWnd.prototype.mouseHandler = function (e) {
+            switch (e.type) {
+                case Laya.Event.MOUSE_DOWN:
+                    break;
+                case Laya.Event.MOUSE_MOVE:
+                    break;
+                case Laya.Event.MOUSE_UP:
+                    break;
+                case Laya.Event.MOUSE_OUT:
+                    break;
+            }
         };
         return GameSceneWnd;
     }(ui.gui.GameSceneUI));

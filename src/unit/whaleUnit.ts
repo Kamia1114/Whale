@@ -21,6 +21,7 @@ class whaleUnit extends baseUnit{
         this._body.anchorY = 0.5;
         this._body.x = Laya.stage.width / 2;
         this._body.y = Laya.stage.height / 2;
+        this._body.scale(0.5,0.5);
     }
 
     protected _update(info:any)

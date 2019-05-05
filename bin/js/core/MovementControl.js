@@ -1,29 +1,22 @@
 /**
  * 控制器
  */
-class MovementControl{
-    private _map: Map;
-    private _uSelf: whaleUnit;
-    //起始位置
-    private _mapPoint: Laya.Point;
+var MovementControl = /** @class */ (function () {
     //
-
-    constructor($map:Map, $self:whaleUnit) { 
+    function MovementControl($map, $self) {
         this._map = $map;
         this._uSelf = $self;
         this._uSelf.x = 380;
         this._uSelf.y = 650;
         this._map.addChild(this._uSelf);
     }
-    
-    public start() {
+    MovementControl.prototype.start = function () {
         //更新单位动作,分开更新因为这个频率要高些
         gRaceTimerMgr.addTimerLoop(Laya.Handler.create(this, this._updateTime, null, false), Define.FrameTime, -1);
-    }
-
-    private _updateTime()
-    {
+    };
+    MovementControl.prototype._updateTime = function () {
         //游戏时间按帧更新
-        
-    }
-}
+    };
+    return MovementControl;
+}());
+//# sourceMappingURL=MovementControl.js.map
