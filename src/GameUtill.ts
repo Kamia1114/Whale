@@ -61,6 +61,34 @@ class GeTool {
             Dst[key] = GeTool.clone(Src[key]);
         }
     }
+
+    static getTargetPoint(angle, distance) :{dX:number, dY:number}
+    {
+        let rObj:{dX:number, dY:number};
+        if(angle%9 == 0) {
+            if(angle == 0) {
+                rObj.dX = distance;
+                rObj.dY = 0;
+            } else if(angle == 18) {
+                rObj.dX = -distance;
+                rObj.dY = 0;
+            } else if(angle == 9) {
+                rObj.dX = 0;
+                rObj.dY = distance;
+            } else if(angle == 27) {
+                rObj.dX = 0;
+                rObj.dY = -distance;
+            }
+        } else {
+            if (angle>27 && angle<9) {
+                let targetX = Math.sin(angle*10*Math.PI/180)*distance;//移动的x距离
+                let targetY = Math.sin(angle*10*Math.PI/180)*distance;//移动的x距离
+            } else {
+                
+            }
+        }
+        return rObj;
+    }
 }
 
 /**************** 全局函数（如非必要请勿使用全局函数, 往GeUtil里添加接口即可）  *********/

@@ -29,9 +29,7 @@
 
 /** 启动页 */
 class Main {
-    // gTableMgr: GeGameTable;
     // gGameUtill: GeGameUtill;
-    // gGameMain:GameMain;
     gNet: GeGameNet;
     gLoginMgr: LoginMgr;
     gRaceTimerMgr: RaceTimerMgr;
@@ -53,7 +51,6 @@ class Main {
         Laya.stage.bgColor = Define.bgColor;
 
         //全局类创建
-        // gTableMgr = new GeGameTable();
         // gGameUtill = new GeGameUtill();
         this.gNet = new GeGameNet();             //网络
         this.gLoginMgr = new LoginMgr();         //登录
@@ -99,7 +96,6 @@ class Main {
 
 }
 
-// var gTableMgr: GeGameTable;
 // var gGameUtill: GeGameUtill;
 var client: Main;
 // var gGameMain:GameMain;
@@ -113,9 +109,7 @@ var loaderMgr: LoaderManager;
 var gNative = new Native(() => {
     client = window['client'] = new Main();
     
-    // gTableMgr = client.gTableMgr;
     // gGameUtill = client.gGameUtill;
-    // gGameMain = client.gGameMain;
     gNet = client.gNet;
     gLoginMgr = client.gLoginMgr;
     gRaceTimerMgr = client.gRaceTimerMgr;

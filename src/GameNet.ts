@@ -67,6 +67,15 @@ class GeGameNet extends Laya.EventDispatcher {
 
     private _procCmd(data: any):void {
         console.log("收到消息:" + data.cmd);
+        gUIMgr.LayaStageEvent(data.cmd, data);
+        // switch (data.cmd) {
+        //     case SOCKET.G_PLAYER_INFO: 
+        //         Player
+        //         break;
+        //     default:
+        //         gUIMgr.LayaStageEvent(data.cmd, data);
+        //         break;
+        // }
     }
 
     /**

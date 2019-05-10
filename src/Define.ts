@@ -7,6 +7,11 @@ class Define{
     static debug = true;
     static stat = true;
     static FrameTime:number = 33; //逻辑一帧的时间
+
+    static speedNormal = 50;    //一秒50像素距离
+    static speedFast = 100;     //加速状态100像素
+    static mapWidth = 6000;     //默认地图宽
+    static mapHeigh = 6000;     //默认地图高
     constructor(){
 
     }

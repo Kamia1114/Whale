@@ -1,4 +1,4 @@
-interface SeWhaleUnitType extends SeUnitType {
+interface WhaleUnitInfo extends UnitBaseInfo {
     /** 外形皮肤 */
     skin: string;
     /** 我跟随的id */
@@ -9,9 +9,9 @@ interface SeWhaleUnitType extends SeUnitType {
     isSelf: boolean;
 }
 
-interface SeUnitType {
+interface UnitBaseInfo {
     /** 单位id */
-    kId: number;
+    kID: number;
     /** 单位位置 */
     point: Laya.Point;
     /** 单位角度 分割36份 0-35 */
@@ -22,4 +22,11 @@ interface SeUnitType {
     speed: number;
     /** map ID */
     mapId: number;
+}
+
+interface WhaleShortInfo {
+    /** 单位id */
+    kID: number;
+    /** 单位位置 */
+    point: Laya.Point;
 }

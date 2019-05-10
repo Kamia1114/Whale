@@ -5,9 +5,9 @@ class baseUnit extends Laya.Sprite{
 
 /****************************************************************** 以下基础属性 ******************************************************************/
 
-    protected _data:SeUnitType;
+    protected _data:UnitBaseInfo;
 
-    constructor(data:SeUnitType){
+    constructor(data:UnitBaseInfo){
         super();
         this._data = data;
         this._init()
@@ -24,7 +24,7 @@ class baseUnit extends Laya.Sprite{
         
     }
 
-    public get uPoint(): Laya.Point {
+    public get iPoint(): Laya.Point {
         return this._data.point;
     }
 }
