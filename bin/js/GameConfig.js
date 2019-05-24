@@ -6,11 +6,11 @@ var GameConfig = /** @class */ (function () {
     }
     GameConfig.width = 750;
     GameConfig.height = 1334;
-    GameConfig.scaleMode = "showall";
+    GameConfig.scaleMode = "fixedauto";
     GameConfig.screenMode = "vertical";
     GameConfig.alignV = "middle";
     GameConfig.alignH = "center";
-    GameConfig.startScene = ui.gui.GameSceneUI;
+    GameConfig.startScene = ui.GameSceneUI;
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;

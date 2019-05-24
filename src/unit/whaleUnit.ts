@@ -3,6 +3,7 @@
 */
 class whaleUnit extends baseUnit{
 
+    //数据跟显示做了分离，
     protected _data:WhaleUnitInfo;
 
     public _body:Laya.Image;
@@ -21,6 +22,12 @@ class whaleUnit extends baseUnit{
         this._body.x = Laya.stage.width / 2;
         this._body.y = Laya.stage.height / 2;
         this._body.scale(0.5,0.5);
-        this._isSelf = this._data.kID == UnitDataMgr.instance.getSelfInfo().kID
+        // this._isSelf = this._data.kID == UnitDataMgr.instance.selfInfo.kID;
+    }
+
+    public gotoPoint(p: Laya.Point)
+    {
+        
+        Laya.Tween.to(this,{x:p.x, y:p.y},1000*Define.twConstVal )
     }
 }

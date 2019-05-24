@@ -11,25 +11,23 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var View = laya.ui.View;
-var Dialog = laya.ui.Dialog;
+var View = Laya.View;
+var Dialog = Laya.Dialog;
+var Scene = Laya.Scene;
 var ui;
 (function (ui) {
-    var gui;
-    (function (gui) {
-        var GameSceneUI = /** @class */ (function (_super) {
-            __extends(GameSceneUI, _super);
-            function GameSceneUI() {
-                return _super.call(this) || this;
-            }
-            GameSceneUI.prototype.createChildren = function () {
-                _super.prototype.createChildren.call(this);
-                this.loadScene("gui/GameScene");
-            };
-            return GameSceneUI;
-        }(View));
-        gui.GameSceneUI = GameSceneUI;
-    })(gui = ui.gui || (ui.gui = {}));
+    var GameSceneUI = /** @class */ (function (_super) {
+        __extends(GameSceneUI, _super);
+        function GameSceneUI() {
+            return _super.call(this) || this;
+        }
+        GameSceneUI.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this);
+            this.loadScene("GameScene");
+        };
+        return GameSceneUI;
+    }(View));
+    ui.GameSceneUI = GameSceneUI;
 })(ui || (ui = {}));
 (function (ui) {
     var gui;

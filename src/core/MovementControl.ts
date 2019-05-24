@@ -16,17 +16,13 @@ class MovementControl{
     constructor($map:Map, $self:whaleUnit) { 
         this._map = $map;
         this._uSelf = $self;
-        this._map.x = this._mapOffsetX = Define.stageWidth/2;
-        this._map.y = this._mapOffsetY = Define.stageHeight/2;
         this._map.addChild(this._uSelf);
-
         this._startP = this._uSelf.iPoint;
     }
     
     public start() {
-        let myData = UnitDataMgr.instance.getSelfInfo();
-        
-        Laya.Tween.to(this._uSelf,{} )
+        this.addPlayEvent();
+        // let myData = UnitDataMgr.instance.selfInfo;
         //更新地图动作,分开更新因为这个频率要高些
         gRaceTimerMgr.addTimerLoop(Laya.Handler.create(this, this._updateTime, null, false), Define.FrameTime, -1);
     }
@@ -34,13 +30,44 @@ class MovementControl{
     private _updateTime()
     {
         //游戏时间按帧更新
-        this._uSelf.x = this._uSelf.iPoint.x;
-        this._uSelf.y = this._uSelf.iPoint.y;
-        this.doMove();
+        // this.doMove();
+        this._updateMapCoord();
+    }
+
+    /** 更新地图位置保持自己始终位于屏幕中心 */
+    private _updateMapCoord()
+    {
+        
     }
 
     /** 运动主逻辑 */
     private doMove() {
+        
+    }
 
+    
+    private addPlayEvent() {
+        Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
+        Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
+        Laya.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
+        Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
+    }
+
+    private mouseHandler(e:Laya.Event)
+    {
+        switch(e.type) {
+            case Laya.Event.MOUSE_DOWN:
+                GeTool.getTargetPoint(Math.floor(Math.random()*36), 50);
+                break;
+            case Laya.Event.MOUSE_MOVE:
+                
+                break;
+            case Laya.Event.MOUSE_UP:
+                
+                break;
+            case Laya.Event.MOUSE_OUT:
+                
+                break;
+        }
     }
 }

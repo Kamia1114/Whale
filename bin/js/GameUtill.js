@@ -40,6 +40,15 @@ var GeTool = /** @class */ (function () {
             Dst[key] = GeTool.clone(Src[key]);
         }
     };
+    GeTool.getTargetPoint = function (angle, distance) {
+        var rObj = { dX: 0, dY: 0 };
+        var targetX = Math.cos(angle * 10 * Math.PI / 180) * distance; //移动的x距离
+        var targetY = Math.sin(angle * 10 * Math.PI / 180) * distance; //移动的x距离
+        rObj.dX = Number(targetX.toFixed(2));
+        rObj.dY = Number(targetY.toFixed(2));
+        console.log("angle: ", angle, "distance: ", distance, "dX: ", rObj.dX, "dY: ", rObj.dY);
+        return rObj;
+    };
     return GeTool;
 }());
 /**************** 全局函数（如非必要请勿使用全局函数, 往GeUtil里添加接口即可）  *********/

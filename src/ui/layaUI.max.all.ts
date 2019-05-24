@@ -1,12 +1,13 @@
-import View=laya.ui.View;
-import Dialog=laya.ui.Dialog;
-module ui.gui {
+import View=Laya.View;
+import Dialog=Laya.Dialog;
+import Scene=Laya.Scene;
+module ui {
     export class GameSceneUI extends View {
         constructor(){ super()}
         createChildren():void {
         
             super.createChildren();
-            this.loadScene("gui/GameScene");
+            this.loadScene("GameScene");
         }
     }
 }

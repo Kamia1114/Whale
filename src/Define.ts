@@ -12,6 +12,8 @@ class Define{
     static speedFast = 100;     //加速状态100像素
     static mapWidth = 6000;     //默认地图宽
     static mapHeigh = 6000;     //默认地图高
+
+    static twConstVal = 5;       //移动tween，暂时设定5000ms，移动至计算出5秒后的位置
     constructor(){
 
     }
@@ -38,6 +40,8 @@ enum EnumLoginType {
     Resource_COMPLETED,
     /** 界面进去了 */
     Enter_COMPLETED,
+    /** 玩家点了开始 */
+    Start,
 }
 
 //窗口

@@ -1,4 +1,3 @@
-
 /**
 * name 
 */
@@ -7,7 +6,7 @@ module UI {
 	 * 游戏主场景
      * 这里添加 whale 活动层
 	 */
-	export class GameSceneWnd extends ui.gui.GameSceneUI {
+	export class GameSceneWnd extends ui.GameSceneUI {
 
         //运动控制
         private _mCtl: MovementControl;
@@ -18,7 +17,7 @@ module UI {
         //鲸鱼数据池
         private _roleList: HashMap<whaleUnit>;
         //需要准备这四条信息
-        private readonly INFO_NUM: number = 4;
+        private readonly INFO_NUM: number = 0;
         //
         private _curInfoNum: number = 0;
         //下边放本地自测数据
@@ -27,7 +26,7 @@ module UI {
 
         constructor() { 
             super();
-            client.loginStep = EnumLoginType.Enter_COMPLETED;//没啥用，记录个步骤发个log
+            client.loginStep = EnumLoginType.Enter_COMPLETED;//这个发完跑计时器了
             this.init();
         }
 
@@ -40,8 +39,7 @@ module UI {
         private initUI() {
             //地图
             this._map = new Map();
-            this._map.x = this._map.y = 0;
-            this.addChild(this._map);
+            gUIMgr.addToLayer(this._map, EnumLayerName.Scene);
             //new自己
             this._iself = new whaleUnit(this.__iData);
             //把元素给控制器
@@ -50,7 +48,9 @@ module UI {
 
         private initEvent()
         {
-            gUIMgr.LayaStageOn(this, G_EVENT.GameInfo_Get, this, this._updateInfoState);
+            // -wait
+            // gUIMgr.LayaStageOn(this, G_EVENT.GameInfo_Get, this, this._updateInfoState);
+            this._updateInfoState();
         }
 
         private _updateInfoState(...arg)
@@ -64,8 +64,8 @@ module UI {
                 txt.color = "#FFFFFF";
                 txt.fontSize = 34;
                 txt.anchorX = txt.anchorY = 0.5;
-                txt.x = Laya.stage.width / 2 - txt.width/2;
-                txt.y = Laya.stage.height / 2;
+                txt.x = Define.stageWidth / 2 - txt.width/2;
+                txt.y = Define.stageHeight / 2;
                 txt.anchorX = 0.5;
                 txt.text = "点击任意 开始游戏";
                 gUIMgr.addToLayer(txt, EnumLayerName.Top);
@@ -80,32 +80,6 @@ module UI {
             gUIMgr.uiLayer.removeLayerByName(EnumLayerName.Top);
             //控制器开始跑了
             this._mCtl.start();
-            this.addPlayEvent();
-        }
-
-        private addPlayEvent() {
-            this.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
-            this.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
-            this.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
-            this.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
-        }
-
-        private mouseHandler(e:Laya.Event)
-        {
-            switch(e.type) {
-                case Laya.Event.MOUSE_DOWN:
-
-                    break;
-                case Laya.Event.MOUSE_MOVE:
-                    
-                    break;
-                case Laya.Event.MOUSE_UP:
-                    
-                    break;
-                case Laya.Event.MOUSE_OUT:
-                    
-                    break;
-            }
         }
     }
 }

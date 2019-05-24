@@ -29,6 +29,7 @@
 /** 启动页 */
 var Main = /** @class */ (function () {
     function Main() {
+        //当前游戏的逻辑时间
         this.iGameTime = 0;
         Config.isAlpha = true;
         Laya.init(Define.stageWidth, Define.stageHeight, Laya.WebGL);
@@ -37,15 +38,10 @@ var Main = /** @class */ (function () {
         Laya.stage.frameRate = "mouse";
         Laya.stage.bgColor = Define.bgColor;
         //全局类创建
-        // gTableMgr = new GeGameTable();
-        // gGameUtill = new GeGameUtill();
         this.gNet = new GeGameNet(); //网络
         this.gLoginMgr = new LoginMgr(); //登录
-        // this.gGameMain = new GameMain();       //主场景
         this.gRaceTimerMgr = new RaceTimerMgr(); //跑计时器更新
         this.gUIMgr = new UIMgr(); //UI管理器
-        //
-        this.m_RaceTimerMgr = new RaceTimerMgr();
         this.gResMgr = new ResMgr();
         this.loaderMgr = new LoaderManager();
         Define.stat && Laya.Stat.show();
@@ -71,15 +67,21 @@ var Main = /** @class */ (function () {
                 case EnumLoginType.Enter_COMPLETED:
                     //走到这 游戏界面进去了
                     console.log("enter complete");
+                    //整个游戏就在这个计时器里运行
+                    Laya.timer.loop(Define.FrameTime, this, this.updateTime);
                     break;
             }
         },
         enumerable: true,
         configurable: true
     });
+    Main.prototype.updateTime = function () {
+        gRaceTimerMgr.update();
+        //游戏时间计算先放这啦
+        this.iGameTime += Define.FrameTime;
+    };
     return Main;
 }());
-// var gTableMgr: GeGameTable;
 // var gGameUtill: GeGameUtill;
 var client;
 // var gGameMain:GameMain;
@@ -91,9 +93,7 @@ var gResMgr;
 var loaderMgr;
 var gNative = new Native(function () {
     client = window['client'] = new Main();
-    // gTableMgr = client.gTableMgr;
     // gGameUtill = client.gGameUtill;
-    // gGameMain = client.gGameMain;
     gNet = client.gNet;
     gLoginMgr = client.gLoginMgr;
     gRaceTimerMgr = client.gRaceTimerMgr;

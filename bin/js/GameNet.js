@@ -72,6 +72,15 @@ var GeGameNet = /** @class */ (function (_super) {
     };
     GeGameNet.prototype._procCmd = function (data) {
         console.log("收到消息:" + data.cmd);
+        gUIMgr.LayaStageEvent(data.cmd, data);
+        // switch (data.cmd) {
+        //     case SOCKET.G_PLAYER_INFO: 
+        //         Player
+        //         break;
+        //     default:
+        //         gUIMgr.LayaStageEvent(data.cmd, data);
+        //         break;
+        // }
     };
     /**
      * 消息发送
@@ -85,6 +94,11 @@ var GeGameNet = /** @class */ (function (_super) {
         data = GeTool.clone(data || []);
         console.log("发送消息" + JSON.stringify(data) + '  netstate:' + this._isConnected);
         this._socket.emit('data', data);
+    };
+    GeGameNet.prototype.testSend = function (data) {
+        console.log("test 发送消息" + JSON.stringify(data) + '  netstate:' + this._isConnected);
+        console.log("模拟 收到消息:" + data);
+        gUIMgr.LayaStageEvent(data, data);
     };
     return GeGameNet;
 }(Laya.EventDispatcher));

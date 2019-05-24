@@ -27,33 +27,11 @@ var whaleUnit = /** @class */ (function (_super) {
         this._body.x = Laya.stage.width / 2;
         this._body.y = Laya.stage.height / 2;
         this._body.scale(0.5, 0.5);
+        // this._isSelf = this._data.kID == UnitDataMgr.instance.selfInfo.kID;
     };
-    whaleUnit.prototype._update = function (info) {
-        for (var key in info) {
-            if (!this._data[key] || this._data[key] != info[key]) {
-                //数据变动了
-                this._data[key] = info[key];
-                this._isChange = true;
-            }
-        }
+    whaleUnit.prototype.gotoPoint = function (p) {
+        Laya.Tween.to(this, { x: p.x, y: p.y }, 1000 * Define.twConstVal);
     };
-    Object.defineProperty(whaleUnit.prototype, "isChange", {
-        get: function () {
-            return this._isChange;
-        },
-        set: function (val) {
-            this._isChange = val;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(whaleUnit.prototype, "uPoint", {
-        get: function () {
-            return this._data.point;
-        },
-        enumerable: true,
-        configurable: true
-    });
     return whaleUnit;
 }(baseUnit));
 //# sourceMappingURL=whaleUnit.js.map

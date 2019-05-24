@@ -27,6 +27,13 @@ var baseUnit = /** @class */ (function (_super) {
     };
     baseUnit.prototype._update = function (info) {
     };
+    Object.defineProperty(baseUnit.prototype, "iPoint", {
+        get: function () {
+            return this._data.point;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return baseUnit;
 }(Laya.Sprite));
 //# sourceMappingURL=baseUnit.js.map

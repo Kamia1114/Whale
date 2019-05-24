@@ -29,7 +29,7 @@ class UnitDataMgr{
         }
     }
 
-    public getSelfInfo(): WhaleUnitInfo
+    public get selfInfo(): WhaleUnitInfo
     {
         return this._selfUnit;
     }

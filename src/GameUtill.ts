@@ -64,29 +64,12 @@ class GeTool {
 
     static getTargetPoint(angle, distance) :{dX:number, dY:number}
     {
-        let rObj:{dX:number, dY:number};
-        if(angle%9 == 0) {
-            if(angle == 0) {
-                rObj.dX = distance;
-                rObj.dY = 0;
-            } else if(angle == 18) {
-                rObj.dX = -distance;
-                rObj.dY = 0;
-            } else if(angle == 9) {
-                rObj.dX = 0;
-                rObj.dY = distance;
-            } else if(angle == 27) {
-                rObj.dX = 0;
-                rObj.dY = -distance;
-            }
-        } else {
-            if (angle>27 && angle<9) {
-                let targetX = Math.sin(angle*10*Math.PI/180)*distance;//移动的x距离
-                let targetY = Math.sin(angle*10*Math.PI/180)*distance;//移动的x距离
-            } else {
-                
-            }
-        }
+        let rObj:{dX:number, dY:number} = {dX:0, dY:0};
+        var targetX = Math.cos(angle*10*Math.PI/180)*distance;//移动的x距离
+        var targetY = Math.sin(angle*10*Math.PI/180)*distance;//移动的x距离
+        rObj.dX = Number(targetX.toFixed(2));
+        rObj.dY = Number(targetY.toFixed(2));
+        console.log("angle: ", angle, "distance: ",distance, "dX: ", rObj.dX, "dY: ", rObj.dY);
         return rObj;
     }
 }

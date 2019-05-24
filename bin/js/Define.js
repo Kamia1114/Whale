@@ -9,6 +9,11 @@ var Define = /** @class */ (function () {
     Define.debug = true;
     Define.stat = true;
     Define.FrameTime = 33; //逻辑一帧的时间
+    Define.speedNormal = 50; //一秒50像素距离
+    Define.speedFast = 100; //加速状态100像素
+    Define.mapWidth = 6000; //默认地图宽
+    Define.mapHeigh = 6000; //默认地图高
+    Define.twConstVal = 5; //移动tween，暂时设定5000ms，移动至计算出5秒后的位置
     return Define;
 }());
 //Layer.ts 层级类型
@@ -32,6 +37,8 @@ var EnumLoginType;
     EnumLoginType[EnumLoginType["Resource_COMPLETED"] = 2] = "Resource_COMPLETED";
     /** 界面进去了 */
     EnumLoginType[EnumLoginType["Enter_COMPLETED"] = 3] = "Enter_COMPLETED";
+    /** 玩家点了开始 */
+    EnumLoginType[EnumLoginType["Start"] = 4] = "Start";
 })(EnumLoginType || (EnumLoginType = {}));
 //窗口
 var WT;

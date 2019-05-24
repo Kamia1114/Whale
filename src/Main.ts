@@ -36,10 +36,8 @@ class Main {
     gUIMgr:UIMgr;
     gResMgr: ResMgr;
     loaderMgr: LoaderManager;
-
-
-    public iGameTime = 0;
-    m_RaceTimerMgr: RaceTimerMgr;
+    //当前游戏的逻辑时间
+    iGameTime: number = 0;
 
     constructor() {
         Config.isAlpha = true;
@@ -51,14 +49,10 @@ class Main {
         Laya.stage.bgColor = Define.bgColor;
 
         //全局类创建
-        // gGameUtill = new GeGameUtill();
         this.gNet = new GeGameNet();             //网络
         this.gLoginMgr = new LoginMgr();         //登录
-        // this.gGameMain = new GameMain();       //主场景
         this.gRaceTimerMgr = new RaceTimerMgr(); //跑计时器更新
         this.gUIMgr = new UIMgr();               //UI管理器
-        //
-        this.m_RaceTimerMgr = new RaceTimerMgr();
         this.gResMgr = new ResMgr();
         this.loaderMgr = new LoaderManager();
 
@@ -87,11 +81,18 @@ class Main {
             case EnumLoginType.Enter_COMPLETED:
                 //走到这 游戏界面进去了
                 console.log("enter complete");
+                //整个游戏就在这个计时器里运行
+                Laya.timer.loop(Define.FrameTime, this, this.updateTime);
                 break;
         }
     }
 
-
+    private updateTime()
+    {
+        gRaceTimerMgr.update();
+        //游戏时间计算先放这啦
+        this.iGameTime += Define.FrameTime;
+    }
 
 
 }

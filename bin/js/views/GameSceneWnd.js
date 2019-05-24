@@ -24,66 +24,66 @@ var UI;
         __extends(GameSceneWnd, _super);
         function GameSceneWnd() {
             var _this = _super.call(this) || this;
+            //需要准备这四条信息
+            _this.INFO_NUM = 0;
+            //
+            _this._curInfoNum = 0;
             //下边放本地自测数据
-            _this.__iData = { skin: "0", followId: 0, attendant: [], isSelf: true, kId: 1, point: new Laya.Point(0, 0), angle: 0, inertia: 10, speed: 0 };
-            client.loginStep = EnumLoginType.Enter_COMPLETED; //没啥用，记录个步骤发个log
+            _this.__iData = { skin: "0", followId: 0, attendant: [], isSelf: true, kID: 1, point: new Laya.Point(3800, 0), angle: 0, inertia: 10, speed: 0, mapId: 1 };
+            client.loginStep = EnumLoginType.Enter_COMPLETED; //这个发完跑计时器了
             _this.init();
             return _this;
         }
         GameSceneWnd.prototype.init = function () {
             this.initUI();
-            // this.initEvent();
-            //点了代码启动
-            Laya.stage.once(Laya.Event.MOUSE_DOWN, this, this.start);
+            this.initEvent();
         };
         GameSceneWnd.prototype.initUI = function () {
             //地图
             this._map = new Map();
-            this._map.x = this._map.y = 0;
-            this.addChild(this._map);
+            gUIMgr.addToLayer(this._map, EnumLayerName.Scene);
             //new自己
             this._iself = new whaleUnit(this.__iData);
             //把元素给控制器
             this._mCtl = new MovementControl(this._map, this._iself);
-            //开始提示
-            var txt = new Laya.Label();
-            txt.color = "#FFFFFF";
-            txt.fontSize = 34;
-            txt.anchorX = txt.anchorY = 0.5;
-            txt.x = Laya.stage.width / 2 - txt.width / 2;
-            txt.y = Laya.stage.height / 2;
-            txt.anchorX = 0.5;
-            txt.text = "点击任意 开始游戏";
-            gUIMgr.addToLayer(txt, EnumLayerName.Top);
+        };
+        GameSceneWnd.prototype.initEvent = function () {
+            // -wait
+            // gUIMgr.LayaStageOn(this, G_EVENT.GameInfo_Get, this, this._updateInfoState);
+            this._updateInfoState();
+        };
+        GameSceneWnd.prototype._updateInfoState = function () {
+            var arg = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                arg[_i] = arguments[_i];
+            }
+            console.log(arg[0]);
+            this._curInfoNum++;
+            if (this._curInfoNum >= this.INFO_NUM) {
+                console.log("all ready!", this._curInfoNum);
+                //开始提示
+                var txt = new Laya.Label();
+                txt.color = "#FFFFFF";
+                txt.fontSize = 34;
+                txt.anchorX = txt.anchorY = 0.5;
+                txt.x = Define.stageWidth / 2 - txt.width / 2;
+                txt.y = Define.stageHeight / 2;
+                txt.anchorX = 0.5;
+                txt.text = "点击任意 开始游戏";
+                gUIMgr.addToLayer(txt, EnumLayerName.Top);
+                Laya.stage.once(Laya.Event.CLICK, this, this.start);
+            }
         };
         //游戏开始时注册一些主循环update
-        GameSceneWnd.prototype.start = function () {
+        GameSceneWnd.prototype.start = function (e) {
+            e.stopPropagation();
             //这里UI把提示去掉
             gUIMgr.uiLayer.removeLayerByName(EnumLayerName.Top);
             //控制器开始跑了
             this._mCtl.start();
-            this.initEvent();
-        };
-        GameSceneWnd.prototype.initEvent = function () {
-            this.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
-            this.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
-            this.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
-            this.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
-        };
-        GameSceneWnd.prototype.mouseHandler = function (e) {
-            switch (e.type) {
-                case Laya.Event.MOUSE_DOWN:
-                    break;
-                case Laya.Event.MOUSE_MOVE:
-                    break;
-                case Laya.Event.MOUSE_UP:
-                    break;
-                case Laya.Event.MOUSE_OUT:
-                    break;
-            }
         };
         return GameSceneWnd;
-    }(ui.gui.GameSceneUI));
+    }(ui.GameSceneUI));
     UI.GameSceneWnd = GameSceneWnd;
 })(UI || (UI = {}));
 //# sourceMappingURL=GameSceneWnd.js.map
