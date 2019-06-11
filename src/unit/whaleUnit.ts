@@ -25,9 +25,13 @@ class whaleUnit extends baseUnit{
         // this._isSelf = this._data.kID == UnitDataMgr.instance.selfInfo.kID;
     }
 
+    public get KID() :number
+    {
+        return this._data.kID;
+    }
+
     public gotoPoint(p: Laya.Point)
     {
-        
         Laya.Tween.to(this,{x:p.x, y:p.y},1000*Define.twConstVal )
     }
 }

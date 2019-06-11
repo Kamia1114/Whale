@@ -14,7 +14,7 @@ module UI {
         private _map: Map;
         //自己
         private _iself: whaleUnit;
-        //鲸鱼数据池
+        //鲸鱼单位
         private _roleList: HashMap<whaleUnit>;
         //需要准备这四条信息
         private readonly INFO_NUM: number = 0;
@@ -34,6 +34,7 @@ module UI {
         {
             this.initUI();
             this.initEvent();
+            this.initData();
         }
 
         private initUI() {
@@ -42,6 +43,7 @@ module UI {
             gUIMgr.addToLayer(this._map, EnumLayerName.Scene);
             //new自己
             this._iself = new whaleUnit(this.__iData);
+            this._roleList[this._iself.KID] = this._iself;
             //把元素给控制器
             this._mCtl = new MovementControl(this._map, this._iself);
         }
@@ -49,8 +51,12 @@ module UI {
         private initEvent()
         {
             // -wait
-            // gUIMgr.LayaStageOn(this, G_EVENT.GameInfo_Get, this, this._updateInfoState);
-            this._updateInfoState();
+            gUIMgr.LayaStageOn(this, G_EVENT.G_PLAYER_INFO, this, this._updateInfoState);
+        }
+
+        private initData()
+        {
+            gNet.getSelfInfo();
         }
 
         private _updateInfoState(...arg)
@@ -81,5 +87,7 @@ module UI {
             //控制器开始跑了
             this._mCtl.start();
         }
+
+        
     }
 }

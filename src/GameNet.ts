@@ -67,15 +67,14 @@ class GeGameNet extends Laya.EventDispatcher {
 
     private _procCmd(data: any):void {
         console.log("收到消息:" + data.cmd);
-        gUIMgr.LayaStageEvent(data.cmd, data);
-        // switch (data.cmd) {
-        //     case SOCKET.G_PLAYER_INFO: 
-        //         Player
-        //         break;
-        //     default:
-        //         gUIMgr.LayaStageEvent(data.cmd, data);
-        //         break;
-        // }
+        switch (data.cmd) {
+            case G_EVENT.G_PLAYER_INFO: 
+                PlayerInfoMgr.instance.updatePlayerInfo(data.info)
+                break;
+            default:
+                gUIMgr.LayaStageEvent(data.cmd, data);
+                break;
+        }
     }
 
     /**
@@ -98,4 +97,11 @@ class GeGameNet extends Laya.EventDispatcher {
         gUIMgr.LayaStageEvent(data, data);
     }
 
+    public getSelfInfo() {
+        var param = {
+            "cmd": S_EVENT.S_PLAYER_INFO,
+            "oppid": PlayerInfoMgr.instance.myOppID
+        }
+        this.testSend(param);
+    }
 }
