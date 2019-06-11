@@ -94,7 +94,19 @@ class GeGameNet extends Laya.EventDispatcher {
     public testSend(data: any) {
         console.log("test 发送消息" + JSON.stringify(data) + '  netstate:' + this._isConnected);
         console.log("模拟 收到消息:" + data);
-        gUIMgr.LayaStageEvent(data, data);
+        let backData = {cmd: data.cmd, }
+        gUIMgr.LayaStageEvent(data.cmd, data);
+    }
+
+    //运动
+    public sendMovementAction(point:Laya.Point, angle:number) {
+        let data = {
+            cmd: 's_movement',
+            x: point.x,
+            y: point.y,
+            angle: angle,
+        }
+        this.testSend(data)
     }
 
     public getSelfInfo() {
