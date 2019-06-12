@@ -4,28 +4,28 @@
 module S_EVENT {
     //——————————————————————发出的信息——————————————————————————————————
     /** 请求个人信息 */
-    export const S_PLAYER_INFO = 'S_PLAYERINFO';
-    /** 请求我的鲸鱼信息 */
-    export const S_MYUNIT_INFO = 'S_MYUNIT_INFO';
+    export const PLAYER_INFO = 'S_PLAYERINFO';
+    /** 发送我的鲸鱼信息 */
+    export const MY_UNIT_INFO = 'S_MY_UNIT_INFO';
     /** 请求当前地图简略鲸鱼信息 */
-    export const S_MAPSHORT_INFO = 'S_MAPSHORT_INFO';
+    export const MAP_UNIT_SHORT_INFO = 'S_MAP_UNIT_SHORT_INFO';
     /** 请求当前地图详情鲸鱼信息 */
-    export const S_MAPDETAIL_INFO = 'S_MAPDETAIL_INFO';
+    export const MAP_UNIT_DETAIL_INFO = 'S_MAP_UNIT_DETAIL_INFO';
     
 }
 
 /**
- * GUI事件通信
+ * 客户端事件通信
  */
 module G_EVENT {
     //——————————————————————返回的信息——————————————————————————————————
 
-    /** 请求个人信息 */
-    export const G_PLAYER_INFO = 'G_PLAYERINFO';
-    /** 请求我的鲸鱼信息 */
-    export const G_MYUNIT_INFO = 'G_MYUNIT_INFO';
-    /** 请求当前地图简略鲸鱼信息 */
-    export const G_MAPSHORT_INFO = 'G_MAPSHORT_INFO';
-    /** 请求当前地图详情鲸鱼信息 */
-    export const G_MAPDETAIL_INFO = 'G_MAPDETAIL_INFO';
+    /** 收到个人信息 */
+    export const PLAYER_INFO = 'G_PLAYERINFO';
+    /** 收到我的鲸鱼信息 */
+    // export const MY_UNIT_INFO = 'G_MY_UNIT_INFO';
+    /** 收到当前地图简略鲸鱼信息 */
+    export const MAP_UNIT_SHORT_INFO = 'G_MAP_UNIT_SHORT_INFO';
+    /** 收到当前地图详情鲸鱼信息 */
+    export const MAP_UNIT_DETAIL_INFO = 'G_MAP_UNIT_DETAIL_INFO';
 }

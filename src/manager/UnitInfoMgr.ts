@@ -1,5 +1,5 @@
-class UnitDataMgr{
-    private static _instance: UnitDataMgr;
+class UnitInfoMgr{
+    private static _instance: UnitInfoMgr;
     /** 自己 */
     private _selfUnit: WhaleUnitInfo;
     /** 简短信息 */
@@ -7,19 +7,16 @@ class UnitDataMgr{
     /** 周围用户详情信息 */
     private _sideUnitInfo: Array<WhaleUnitInfo>;
 
-    static get instance(): UnitDataMgr {
+    static get instance(): UnitInfoMgr {
         if( this._instance == null)
-            this._instance = new UnitDataMgr();
+            this._instance = new UnitInfoMgr();
         return this._instance;
     }
     
-    constructor() { 
-        gUIMgr.LayaStageOn(this, S_EVENT.G_MYUNIT_INFO, this, this._updateMyInfo);
-        gUIMgr.LayaStageOn(this, S_EVENT.G_MAPSHORT_INFO, this, this._updateMapUnitInfo);
-        gUIMgr.LayaStageOn(this, S_EVENT.G_MAPDETAIL_INFO, this, this._updateMapDetailUnitInfo);
+    constructor() {
     }
 
-    private _updateMyInfo(info: WhaleUnitInfo) {
+    public updateMyInfo(info: WhaleUnitInfo) {
         console.log("updateMyInfo", info);
         for (var key in info){
             if(!this._selfUnit[key] || this._selfUnit[key] != info[key]) {
@@ -34,13 +31,18 @@ class UnitDataMgr{
         return this._selfUnit;
     }
 
-    private _updateMapUnitInfo(infos: Array<any>) {
+    public updateMapUnitInfo(infos: Array<any>) {
         console.log("updateMapUnitInfo", infos);
         //下边计算多少范围内的数据需要请求详情信息
 
     }
 
-    private _updateMapDetailUnitInfo(infos: Array<any>) {
+    public updateMapDetailUnitInfo(infos: Array<WhaleUnitInfo>) {
         console.log("updateMapDetailUnitInfo", infos);
+        let myKID = PlayerInfoMgr.instance.kID;
+        for(let i = 0; i < infos.length; i++) {
+            let info = infos[i];
+            //加入到对应map里
+        }
     }
 }

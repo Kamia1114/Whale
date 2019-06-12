@@ -65,18 +65,6 @@ class GeGameNet extends Laya.EventDispatcher {
         this._socket.emit("session", this._session);
     }
 
-    private _procCmd(data: any):void {
-        console.log("收到消息:" + data.cmd);
-        switch (data.cmd) {
-            case G_EVENT.G_PLAYER_INFO: 
-                PlayerInfoMgr.instance.updatePlayerInfo(data.info)
-                break;
-            default:
-                gUIMgr.LayaStageEvent(data.cmd, data);
-                break;
-        }
-    }
-
     /**
      * 消息发送
      * @param data object对象 格式如下
@@ -98,10 +86,55 @@ class GeGameNet extends Laya.EventDispatcher {
         gUIMgr.LayaStageEvent(data.cmd, data);
     }
 
-    //运动
+    //—————————————————————— 给服务器发送消息接口 ————————————————————————————————————————/
+    /**
+     * 请求自己个人信息，几条动态之类的
+     */
+    public getSelfInfo() {
+        var param = {
+            "cmd": S_EVENT.PLAYER_INFO,
+            "oppid": PlayerInfoMgr.instance.myOppID
+        }
+        this.testSend(param);
+    }
+
+    /**
+     * 自己的<・)))><<信息
+     */
+    public getSelfUnitInfo() {
+        let kId = PlayerInfoMgr.instance.kID;
+        this.getUnitDetailInfo([kId]);
+    }
+
+    /**
+     * 地图简要的<・)))><<信息
+     */
+    public getMapUnitInfo(mapID) {
+        var param = {
+            "cmd": S_EVENT.MAP_UNIT_SHORT_INFO,
+            "mapID": mapID
+        }
+        this.testSend(param);
+    }
+
+    /**
+     * 获取kids列表里对应的<・)))><<详情信息
+     * @param kIDs 要查询对象的kID
+     */
+    public getUnitDetailInfo(kIDs: Array<number>) {
+        var param = {
+            "cmd": S_EVENT.MAP_UNIT_DETAIL_INFO,
+            "kIDs": kIDs
+        }
+        this.testSend(param);
+    }
+
+    /**
+     * 运动
+     */
     public sendMovementAction(point:Laya.Point, angle:number) {
         let data = {
-            cmd: 's_movement',
+            cmd: S_EVENT.MY_UNIT_INFO,
             x: point.x,
             y: point.y,
             angle: angle,
@@ -109,11 +142,32 @@ class GeGameNet extends Laya.EventDispatcher {
         this.testSend(data)
     }
 
-    public getSelfInfo() {
-        var param = {
-            "cmd": S_EVENT.S_PLAYER_INFO,
-            "oppid": PlayerInfoMgr.instance.myOppID
+    //—————————————————————— 给收到消息处理消息 ————————————————————————————————————————/
+
+    /**
+     * 消息接收
+     * @param data object对象 格式如下
+     *  var param = {
+            "cmd": 'eat',
+            "info1": any,
+            "info2": any,
         }
-        this.testSend(param);
+     */
+    private _procCmd(data: any):void {
+        console.log("收到消息:" + data.cmd);
+        switch (data.cmd) {
+            case G_EVENT.PLAYER_INFO: 
+                PlayerInfoMgr.instance.updatePlayerInfo(data.info);
+                break;
+            case G_EVENT.MAP_UNIT_SHORT_INFO:
+                UnitInfoMgr.instance.updateMapUnitInfo(data.info);
+                break;
+            case G_EVENT.MAP_UNIT_DETAIL_INFO:
+                UnitInfoMgr.instance.updateMapDetailUnitInfo(data.info);
+                break;
+            default:
+                gUIMgr.LayaStageEvent(data.cmd, data);
+                break;
+        }
     }
 }

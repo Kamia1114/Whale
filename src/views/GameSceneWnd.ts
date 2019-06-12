@@ -51,14 +51,22 @@ module UI {
         private initEvent()
         {
             // -wait
-            gUIMgr.LayaStageOn(this, G_EVENT.G_PLAYER_INFO, this, this._updateInfoState);
+            gUIMgr.LayaStageOn(this, G_EVENT.PLAYER_INFO, this, this._selfInfoComplete);
         }
 
         private initData()
         {
             gNet.getSelfInfo();
+            gNet.getSelfUnitInfo();
         }
 
+        //个人信息收到了，通知进行下一步
+        private _selfInfoComplete()
+        {
+            this._updateInfoState();
+        }
+
+        //告诉玩家可以开始了
         private _updateInfoState(...arg)
         {
             console.log(arg[0]);

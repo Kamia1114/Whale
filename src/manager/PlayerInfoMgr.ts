@@ -1,7 +1,8 @@
 class PlayerInfoMgr{
     private static _instance: PlayerInfoMgr;
     public myOppID = "5456";
-    
+    // kid
+    private _kID:number;
     //角色名字
     private _charName:string;
     //性别
@@ -25,11 +26,16 @@ class PlayerInfoMgr{
     
     public updatePlayerInfo(info:any)
     {
+        this._kID = info.kID;
         this._charName = info.charName;
         this._sex = info.sex;
         this._popNum = info.v;
         this._word = info.word;
-        gUIMgr.LayaStageEvent(G_EVENT.G_PLAYER_INFO);
+        gUIMgr.LayaStageEvent(G_EVENT.PLAYER_INFO);
+    }
+
+    public get kID(): number {
+        return this._kID;
     }
 }
 
