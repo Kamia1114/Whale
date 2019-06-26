@@ -32,6 +32,6 @@ class whaleUnit extends baseUnit{
 
     public gotoPoint(p: Laya.Point)
     {
-        Laya.Tween.to(this,{x:p.x, y:p.y},1000*Define.twConstVal )
+        Laya.Tween.to(this,{x:p.x, y:p.y},1000*Define.twConstVal );
     }
 }

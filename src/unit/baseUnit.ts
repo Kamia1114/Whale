@@ -25,7 +25,7 @@ class baseUnit extends Laya.Sprite{
     }
 
     public get iPoint(): Laya.Point {
-        return this._data.point;
+        return new Laya.Point(this._data.x, this._data.y);
     }
 }
 

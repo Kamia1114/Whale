@@ -29,6 +29,13 @@ var whaleUnit = /** @class */ (function (_super) {
         this._body.scale(0.5, 0.5);
         // this._isSelf = this._data.kID == UnitDataMgr.instance.selfInfo.kID;
     };
+    Object.defineProperty(whaleUnit.prototype, "KID", {
+        get: function () {
+            return this._data.kID;
+        },
+        enumerable: true,
+        configurable: true
+    });
     whaleUnit.prototype.gotoPoint = function (p) {
         Laya.Tween.to(this, { x: p.x, y: p.y }, 1000 * Define.twConstVal);
     };

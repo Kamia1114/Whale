@@ -62,15 +62,20 @@ class GeTool {
         }
     }
 
-    static getTargetPoint(angle, distance) :{dX:number, dY:number}
+    /**
+     * 
+     * @param point 当前位置
+     * @param angle 运动角度
+     */
+    static getTargetPoint(point: Laya.Point, angle:number) :Laya.Point
     {
-        let rObj:{dX:number, dY:number} = {dX:0, dY:0};
-        var targetX = Math.cos(angle*10*Math.PI/180)*distance;//移动的x距离
-        var targetY = Math.sin(angle*10*Math.PI/180)*distance;//移动的x距离
-        rObj.dX = Number(targetX.toFixed(2));
-        rObj.dY = Number(targetY.toFixed(2));
-        console.log("angle: ", angle, "distance: ",distance, "dX: ", rObj.dX, "dY: ", rObj.dY);
-        return rObj;
+        // let cPoint:Laya.Point = new Laya.Point(GameConfig.width/2,GameConfig.height/2);
+        let radian:number = angle * Math.PI / 180; //弧度
+        let distance = Define.twConstVal*(UnitInfoMgr.instance.selfInfo.speed?Define.speedFast:Define.speedNormal); //根据当前加速状态极端移动距离
+        var targetX = Math.round(Math.cos(radian)*distance);//移动的x距离
+        var targetY = Math.round(Math.sin(radian*10*Math.PI/180)*distance);//移动的y距离
+        console.log("angle: ", radian* 180 / Math.PI, "distance: ",distance, "X: ", targetX + point.x, "Y: ", targetY + point.y);
+        return new Laya.Point(point.x + targetX, point.y + targetY);;
     }
 }
 

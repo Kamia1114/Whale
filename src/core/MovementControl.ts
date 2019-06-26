@@ -22,7 +22,6 @@ class MovementControl{
     }
     
     public start() {
-        this.addPlayEvent();
         // let myData = UnitDataMgr.instance.selfInfo;
         //更新地图动作,分开更新因为这个频率要高些
         gRaceTimerMgr.addTimerLoop(Laya.Handler.create(this, this._updateTime, null, false), Define.FrameTime, -1);
@@ -31,8 +30,8 @@ class MovementControl{
     private _updateTime()
     {
         //游戏时间按帧更新
-        // this.doMove();
         this._updateMapCoord();
+        //更新运动
     }
 
     /** 更新地图位置保持自己始终位于屏幕中心 */
@@ -40,43 +39,28 @@ class MovementControl{
     {
         this._map.x = -this._uSelf.x;
         this._map.y = -this._uSelf.y;
-    }
-    
-    private addPlayEvent() {
-        Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
-        Laya.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
-        Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
+        UnitInfoMgr.instance.selfPoint = new Laya.Point(this._uSelf.x, this._uSelf.y);
     }
 
-    private mouseHandler(e:Laya.Event)
+    public move(x:number , y:number)
     {
-        switch(e.type) {
-            case Laya.Event.MOUSE_DOWN:
-                this.doMove(e.stageX, e.stageY);
-                Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
-                break;
-            case Laya.Event.MOUSE_MOVE:
-                
-                break;
-            case Laya.Event.MOUSE_UP:
-                Laya.stage.off(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
-                break;
-            case Laya.Event.MOUSE_OUT:
-                
-                break;
-        }
+        let cPoint:Laya.Point = new Laya.Point(GameConfig.width/2,GameConfig.height/2);
+        let radian:number = Math.atan2((cPoint.y-y), (cPoint.x-x)) //弧度
+        var angle:number = Math.round(radian*180/Math.PI/10)%36; //角度
+        console.log("angle: " , angle);
+        if (UnitInfoMgr.instance.selfInfo.angle == angle) return;
+        UnitInfoMgr.instance.selfInfo.angle = angle;
+        this._doMove(x, y, angle, PlayerInfoMgr.instance.kID);
+        gNet.sendMovementAction(angle);
     }
     
-    /** 运动主逻辑 */
-    private doMove(x,y) {
-        var p1:Laya.Point = new Laya.Point(x,y);
-        var p2:Laya.Point = new Laya.Point(GameConfig.width/2,GameConfig.height/2);
-        
-        var angle:number = Math.atan2((p2.y-p1.y), (p2.x-p1.x)) //弧度\
-        console.log("angle" , angle);
-        var theta:number = Math.round(angle*(180/Math.PI)/10)%36; //角度
-        console.log("theta" , angle*(180/Math.PI), "  -", theta);
-
-        gNet.sendMovementAction(new Laya.Point(x,y), theta);
+    //显示上的移动信息
+    private _doMove(x:number, y:number, angle:number, kId: number): void
+    {
+        let targetP = GeTool.getTargetPoint(new Laya.Point(x,y), angle);
+        console.log(`targetP: x: ${targetP.x}, y: ${targetP.y}` );
+        this._uSelf
     }
+
+
 }

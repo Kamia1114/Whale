@@ -70,18 +70,6 @@ var GeGameNet = /** @class */ (function (_super) {
         }
         this._socket.emit("session", this._session);
     };
-    GeGameNet.prototype._procCmd = function (data) {
-        console.log("收到消息:" + data.cmd);
-        gUIMgr.LayaStageEvent(data.cmd, data);
-        // switch (data.cmd) {
-        //     case SOCKET.G_PLAYER_INFO: 
-        //         Player
-        //         break;
-        //     default:
-        //         gUIMgr.LayaStageEvent(data.cmd, data);
-        //         break;
-        // }
-    };
     /**
      * 消息发送
      * @param data object对象 格式如下
@@ -92,13 +80,102 @@ var GeGameNet = /** @class */ (function (_super) {
      */
     GeGameNet.prototype.send = function (data) {
         data = GeTool.clone(data || []);
+        if (Define.isTest) {
+            this.testSend(data);
+            return;
+        }
         console.log("发送消息" + JSON.stringify(data) + '  netstate:' + this._isConnected);
         this._socket.emit('data', data);
     };
     GeGameNet.prototype.testSend = function (data) {
         console.log("test 发送消息" + JSON.stringify(data) + '  netstate:' + this._isConnected);
+        data.cmd = "G" + data.cmd.substr(1, data.cmd.length);
         console.log("模拟 收到消息:" + data);
-        gUIMgr.LayaStageEvent(data, data);
+        this._procCmd(data);
+    };
+    //—————————————————————— 给服务器发送消息接口 ————————————————————————————————————————/
+    /**
+     * 请求自己个人信息，几条动态之类的
+     */
+    GeGameNet.prototype.getSelfInfo = function () {
+        var oppid = PlayerInfoMgr.instance.myOppID;
+        var param = {
+            cmd: S_EVENT.PLAYER_INFO,
+            oppid: oppid
+        };
+        this.send(param);
+    };
+    /**
+     * 自己的<・)))><<信息
+     */
+    GeGameNet.prototype.getSelfUnitInfo = function () {
+        var kId = PlayerInfoMgr.instance.kID;
+        this.getUnitDetailInfo([kId]);
+    };
+    /**
+     * 地图简要的<・)))><<信息
+     */
+    GeGameNet.prototype.getMapUnitInfo = function (mapID) {
+        var param = {
+            cmd: S_EVENT.MAP_UNIT_SHORT_INFO,
+            mapID: mapID
+        };
+        this.send(param);
+    };
+    /**
+     * 获取kids列表里对应的<・)))><<详情信息
+     * @param kIDs 要查询对象的kID
+     */
+    GeGameNet.prototype.getUnitDetailInfo = function (kIDs) {
+        var param = {
+            cmd: S_EVENT.MAP_UNIT_DETAIL_INFO,
+            kIDs: kIDs
+        };
+        this.send(param);
+    };
+    /**
+     * 运动
+     */
+    GeGameNet.prototype.sendMovementAction = function (angle) {
+        var data = {
+            cmd: S_EVENT.MY_MOVE_INFO,
+            kID: PlayerInfoMgr.instance.kID,
+            x: UnitInfoMgr.instance.selfInfo.x,
+            y: UnitInfoMgr.instance.selfInfo.x,
+            angle: angle,
+        };
+        this.send(data);
+    };
+    //—————————————————————— 给收到消息处理消息 ————————————————————————————————————————/
+    /**
+     * 消息接收
+     * @param data object对象 格式如下
+     *  var param = {
+            "cmd": 'eat',
+            "info1": any,
+            "info2": any,
+        }
+     */
+    GeGameNet.prototype._procCmd = function (data) {
+        console.log("收到消息:" + data.cmd);
+        switch (data.cmd) {
+            case G_EVENT.PLAYER_INFO:
+                PlayerInfoMgr.instance.updatePlayerInfo(data.info);
+                break;
+            case G_EVENT.MAP_UNIT_SHORT_INFO:
+                UnitInfoMgr.instance.updateMapUnitInfo(data.info);
+                break;
+            case G_EVENT.MAP_UNIT_DETAIL_INFO:
+                UnitInfoMgr.instance.updateMapDetailUnitInfo(data.info);
+                break;
+            case G_EVENT.UNIT_MOVE_INFO:
+                if (data.kId == PlayerInfoMgr.instance.kID)
+                    return;
+                UnitInfoMgr.instance.updateMapDetailUnitInfo([data.info]);
+            default:
+                gUIMgr.LayaStageEvent(data.cmd, data.info);
+                break;
+        }
     };
     return GeGameNet;
 }(Laya.EventDispatcher));

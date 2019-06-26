@@ -13,13 +13,14 @@ interface UnitBaseInfo {
     /** 单位id */
     kID: number;
     /** 单位位置 */
-    point: Laya.Point;
+    x: number;
+    y: number;
     /** 单位角度 分割36份 0-35 */
     angle: number;
     /** 加速度 */
-    inertia: number;
+    // inertia: number;
     /** 当前速度 */
-    speed: number;
+    speed: boolean;
     /** map ID */
     mapId: number;
 }
@@ -28,5 +29,6 @@ interface WhaleShortInfo {
     /** 单位id */
     kID: number;
     /** 单位位置 */
-    point: Laya.Point;
+    x: number;
+    y: number;
 }

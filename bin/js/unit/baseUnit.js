@@ -29,7 +29,7 @@ var baseUnit = /** @class */ (function (_super) {
     };
     Object.defineProperty(baseUnit.prototype, "iPoint", {
         get: function () {
-            return this._data.point;
+            return new Laya.Point(this._data.x, this._data.y);
         },
         enumerable: true,
         configurable: true

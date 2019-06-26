@@ -1,4 +1,5 @@
 class Define{
+    static isTest = true;
     static stageWidth = 750;
     static stageHeight = 1334;
     static scaleMode = Laya.Stage.SCALE_FIXED_AUTO;
@@ -8,8 +9,8 @@ class Define{
     static stat = true;
     static FrameTime:number = 33; //逻辑一帧的时间
 
-    static speedNormal = 50;    //一秒50像素距离
-    static speedFast = 100;     //加速状态100像素
+    static speedNormal = 50;    //一秒50距离
+    static speedFast = 100;     //加速状态100
     static mapWidth = 6000;     //默认地图宽
     static mapHeigh = 6000;     //默认地图高
 
@@ -62,18 +63,11 @@ class HashMap<T>{
     }
 
     get(key: string | number) {
-        return <Array<T>>this._data[key]
+        if(!this._data[key]) return null;
+        return this._data[key];
     }
 
-    add(key: string | number, v: T) {
-        if (!this._data[key]) {
-            this._data[key] = [];
-        }
-
-        this._data[key].push(v);
-    }
-
-    set(key: string | number, v: Array<T>) {
+    set(key: string | number, v: any) {
         this._data[key] = v;
     }
 

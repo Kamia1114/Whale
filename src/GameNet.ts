@@ -75,27 +75,33 @@ class GeGameNet extends Laya.EventDispatcher {
      */
     public send(data: any) {
         data = GeTool.clone(data || []);
+        if(Define.isTest) {
+            this.testSend(data);
+            return;
+        }
         console.log("发送消息" + JSON.stringify(data) + '  netstate:' + this._isConnected);
         this._socket.emit('data', data);
     }
 
     public testSend(data: any) {
         console.log("test 发送消息" + JSON.stringify(data) + '  netstate:' + this._isConnected);
+        data.cmd = "G" + data.cmd.substr(1, data.cmd.length);
         console.log("模拟 收到消息:" + data);
-        let backData = {cmd: data.cmd, }
-        gUIMgr.LayaStageEvent(data.cmd, data);
+        this._procCmd(data);
     }
+
 
     //—————————————————————— 给服务器发送消息接口 ————————————————————————————————————————/
     /**
      * 请求自己个人信息，几条动态之类的
      */
     public getSelfInfo() {
+        let oppid = PlayerInfoMgr.instance.myOppID
         var param = {
-            "cmd": S_EVENT.PLAYER_INFO,
-            "oppid": PlayerInfoMgr.instance.myOppID
+            cmd: S_EVENT.PLAYER_INFO,
+            oppid: oppid
         }
-        this.testSend(param);
+        this.send(param);
     }
 
     /**
@@ -111,10 +117,10 @@ class GeGameNet extends Laya.EventDispatcher {
      */
     public getMapUnitInfo(mapID) {
         var param = {
-            "cmd": S_EVENT.MAP_UNIT_SHORT_INFO,
-            "mapID": mapID
+            cmd: S_EVENT.MAP_UNIT_SHORT_INFO,
+            mapID: mapID
         }
-        this.testSend(param);
+        this.send(param);
     }
 
     /**
@@ -123,23 +129,24 @@ class GeGameNet extends Laya.EventDispatcher {
      */
     public getUnitDetailInfo(kIDs: Array<number>) {
         var param = {
-            "cmd": S_EVENT.MAP_UNIT_DETAIL_INFO,
-            "kIDs": kIDs
+            cmd: S_EVENT.MAP_UNIT_DETAIL_INFO,
+            kIDs: kIDs
         }
-        this.testSend(param);
+        this.send(param);
     }
 
     /**
      * 运动
      */
-    public sendMovementAction(point:Laya.Point, angle:number) {
+    public sendMovementAction(angle:number) {
         let data = {
-            cmd: S_EVENT.MY_UNIT_INFO,
-            x: point.x,
-            y: point.y,
+            cmd: S_EVENT.MY_MOVE_INFO,
+            kID: PlayerInfoMgr.instance.kID,
+            x: UnitInfoMgr.instance.selfInfo.x,
+            y: UnitInfoMgr.instance.selfInfo.x,
             angle: angle,
         }
-        this.testSend(data)
+        this.send(data);
     }
 
     //—————————————————————— 给收到消息处理消息 ————————————————————————————————————————/
@@ -157,6 +164,7 @@ class GeGameNet extends Laya.EventDispatcher {
         console.log("收到消息:" + data.cmd);
         switch (data.cmd) {
             case G_EVENT.PLAYER_INFO: 
+                data.info = {skin:"0", followId:0, attendant:[], isSelf:true, kID:1, x:3800, y:0, angle:0, speed:false, mapId:1};
                 PlayerInfoMgr.instance.updatePlayerInfo(data.info);
                 break;
             case G_EVENT.MAP_UNIT_SHORT_INFO:
@@ -165,8 +173,11 @@ class GeGameNet extends Laya.EventDispatcher {
             case G_EVENT.MAP_UNIT_DETAIL_INFO:
                 UnitInfoMgr.instance.updateMapDetailUnitInfo(data.info);
                 break;
+            case G_EVENT.UNIT_MOVE_INFO:
+                if(data.kId == PlayerInfoMgr.instance.kID) return;
+                UnitInfoMgr.instance.updateMapDetailUnitInfo([data.info]);
             default:
-                gUIMgr.LayaStageEvent(data.cmd, data);
+                gUIMgr.LayaStageEvent(data.cmd, data.info);
                 break;
         }
     }

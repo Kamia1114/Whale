@@ -1,6 +1,7 @@
 var Define = /** @class */ (function () {
     function Define() {
     }
+    Define.isTest = true;
     Define.stageWidth = 750;
     Define.stageHeight = 1334;
     Define.scaleMode = Laya.Stage.SCALE_FIXED_AUTO;
@@ -9,8 +10,8 @@ var Define = /** @class */ (function () {
     Define.debug = true;
     Define.stat = true;
     Define.FrameTime = 33; //逻辑一帧的时间
-    Define.speedNormal = 50; //一秒50像素距离
-    Define.speedFast = 100; //加速状态100像素
+    Define.speedNormal = 50; //一秒50距离
+    Define.speedFast = 100; //加速状态100
     Define.mapWidth = 6000; //默认地图宽
     Define.mapHeigh = 6000; //默认地图高
     Define.twConstVal = 5; //移动tween，暂时设定5000ms，移动至计算出5秒后的位置
@@ -55,13 +56,9 @@ var HashMap = /** @class */ (function () {
         }
     }
     HashMap.prototype.get = function (key) {
+        if (!this._data[key])
+            return null;
         return this._data[key];
-    };
-    HashMap.prototype.add = function (key, v) {
-        if (!this._data[key]) {
-            this._data[key] = [];
-        }
-        this._data[key].push(v);
     };
     HashMap.prototype.set = function (key, v) {
         this._data[key] = v;

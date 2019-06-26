@@ -11,40 +11,37 @@ var MovementControl = /** @class */ (function () {
         this._startP = this._uSelf.iPoint;
     }
     MovementControl.prototype.start = function () {
-        this.addPlayEvent();
         // let myData = UnitDataMgr.instance.selfInfo;
         //更新地图动作,分开更新因为这个频率要高些
         gRaceTimerMgr.addTimerLoop(Laya.Handler.create(this, this._updateTime, null, false), Define.FrameTime, -1);
     };
     MovementControl.prototype._updateTime = function () {
         //游戏时间按帧更新
-        // this.doMove();
         this._updateMapCoord();
+        //更新运动
     };
     /** 更新地图位置保持自己始终位于屏幕中心 */
     MovementControl.prototype._updateMapCoord = function () {
+        this._map.x = -this._uSelf.x;
+        this._map.y = -this._uSelf.y;
+        UnitInfoMgr.instance.selfPoint = new Laya.Point(this._uSelf.x, this._uSelf.y);
     };
-    /** 运动主逻辑 */
-    MovementControl.prototype.doMove = function () {
+    MovementControl.prototype.move = function (x, y) {
+        var cPoint = new Laya.Point(GameConfig.width / 2, GameConfig.height / 2);
+        var radian = Math.atan2((cPoint.y - y), (cPoint.x - x)); //弧度
+        var angle = Math.round(radian * 180 / Math.PI / 10) % 36; //角度
+        console.log("angle: ", angle);
+        if (UnitInfoMgr.instance.selfInfo.angle == angle)
+            return;
+        UnitInfoMgr.instance.selfInfo.angle = angle;
+        this._doMove(x, y, angle, PlayerInfoMgr.instance.kID);
+        gNet.sendMovementAction(angle);
     };
-    MovementControl.prototype.addPlayEvent = function () {
-        Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseHandler);
-        Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseHandler);
-        Laya.stage.on(Laya.Event.MOUSE_UP, this, this.mouseHandler);
-        Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseHandler);
-    };
-    MovementControl.prototype.mouseHandler = function (e) {
-        switch (e.type) {
-            case Laya.Event.MOUSE_DOWN:
-                GeTool.getTargetPoint(Math.floor(Math.random() * 36), 50);
-                break;
-            case Laya.Event.MOUSE_MOVE:
-                break;
-            case Laya.Event.MOUSE_UP:
-                break;
-            case Laya.Event.MOUSE_OUT:
-                break;
-        }
+    //显示上的移动信息
+    MovementControl.prototype._doMove = function (x, y, angle, kId) {
+        var targetP = GeTool.getTargetPoint(new Laya.Point(x, y), angle);
+        console.log("targetP: x: " + targetP.x + ", y: " + targetP.y);
+        this._uSelf;
     };
     return MovementControl;
 }());

@@ -13,15 +13,12 @@ class PlayerInfoMgr{
     private _word:string;
     //点赞数什么的... 再说
 
-    public static get instance(): PlayerInfoMgr {
-        if(this._instance == null)
-            this._instance = new PlayerInfoMgr();
-        return this.instance;
+    static get instance(): PlayerInfoMgr {
+        !this._instance && (this._instance = new PlayerInfoMgr());
+        return this._instance;
     }
-
     
     constructor() { 
-        
     }
     
     public updatePlayerInfo(info:any)
