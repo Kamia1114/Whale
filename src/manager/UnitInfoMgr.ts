@@ -35,10 +35,21 @@ class UnitInfoMgr{
         this._selfUnit.y = p.y;
     }
 
-    public updateMapUnitInfo(data: Array<WhaleShortInfo>) {
-        console.log("updateMapUnitInfo", data);
+    public updateMapUnitInfo($info: Array<any>) {
+        console.log("updateMapUnitInfo");
         //下边计算多少范围内的数据需要请求详情信息
-        
+        if(!this._mapUnitInfo) {
+            this._mapUnitInfo = new HashMap();
+        }
+        for(let i = 0; i < $info.length; i++) {
+            let unitInfo:WhaleShortInfo = this._mapUnitInfo.get($info[i].kId);
+            if(!unitInfo) unitInfo =  {kID:0, x:0, y:0, mapId:1};
+            for (let key in $info[i]) {
+                unitInfo[key] = $info[i][key];
+            }
+            this._mapUnitInfo.set($info[i].kId, unitInfo);
+            //加入到对应map里
+        }
     }
 
     public updateMapDetailUnitInfo($info: Array<any>) {
@@ -58,5 +69,22 @@ class UnitInfoMgr{
             //加入到对应map里
         }
         kIDs.length>0 && gUIMgr.LayaStageEvent(G_EVENT.UNIT_MOVE_INFO, kIDs); //触发移动更新
+    }
+
+    public getUnitDetailInfoByID(kId:number) {
+        return this._sideUnitInfo.get(kId);
+    }
+
+    public changeMap(curMapID: number)
+    {
+        //更改地图，出发时删除旧的信息
+        let keys = this._mapUnitInfo.keys;
+        for( let i = 0; i < keys.length; i++) {
+            let unitInfo = this._mapUnitInfo.get(keys[i]);
+            if(unitInfo.mapId != curMapID) {
+                this._mapUnitInfo.del(keys[i]);
+                this._sideUnitInfo.del(keys[i]);
+            }
+        }
     }
 }

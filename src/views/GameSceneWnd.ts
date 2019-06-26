@@ -14,8 +14,6 @@ module UI {
         private _map: Map;
         //自己
         private _iself: whaleUnit;
-        //鲸鱼单位
-        private _roleList: HashMap<whaleUnit>;
         //需要准备这四条信息
         private readonly INFO_NUM: number = 0;
         //
@@ -43,8 +41,8 @@ module UI {
             gUIMgr.addToLayer(this._map, EnumLayerName.Scene);
             //new自己
             this._iself = new whaleUnit(this.__iData);
-            this._roleList = new HashMap();
-            this._roleList.set(this._iself.KID, this._iself);
+            this._iself.x = Laya.stage.width / 2;
+            this._iself.y = Laya.stage.height / 2;
             //把元素给控制器
             this._mCtl = new MovementControl(this._map, this._iself);
         }
@@ -127,11 +125,14 @@ module UI {
     
         /** 运动主逻辑 */
         private _move(x,y) {
-            this._mCtl.move(x, y);
+            this._mCtl.readyMove(x, y);
         }
 
         private _updateUnit(ids:Array<number>) 
         {
+            for(let i = 0; i < ids.length; i++) {
+                this._mCtl.doMove(ids[i]);
+            }
             
         }
 

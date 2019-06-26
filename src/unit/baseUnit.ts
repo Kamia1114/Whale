@@ -5,9 +5,9 @@ class baseUnit extends Laya.Sprite{
 
 /****************************************************************** 以下基础属性 ******************************************************************/
 
-    protected _data:UnitBaseInfo;
+    protected _data:WhaleUnitInfo;
 
-    constructor(data:UnitBaseInfo){
+    constructor(data:WhaleUnitInfo){
         super();
         this._data = data;
         this._init()
@@ -22,6 +22,13 @@ class baseUnit extends Laya.Sprite{
     protected _update(info:any)
     {
         
+    }
+
+    //刷新同步显示跟逻辑坐标
+    public refreshPoint()
+    {
+        this._data.x = this.x;
+        this._data.y = this.y;
     }
 
     public get iPoint(): Laya.Point {
