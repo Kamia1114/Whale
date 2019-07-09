@@ -28,7 +28,7 @@ class PlayerInfoMgr{
         this._sex = info.sex;
         this._popNum = info.popNum;
         this._word = info.word;
-        gUIMgr.LayaStageEvent(G_EVENT.PLAYER_INFO);
+        gUIMgr.LayaStageEvent(EVENT.PLAYER_INFO);
     }
 
     public get kID(): number {

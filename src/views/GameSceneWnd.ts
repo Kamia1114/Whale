@@ -14,15 +14,13 @@ module UI {
         private _map: Map;
         //自己
         private _iself: whaleUnit;
-        //鲸鱼单位
-        private _roleList: HashMap<whaleUnit>;
         //需要准备这四条信息
         private readonly INFO_NUM: number = 0;
         //
         private _curInfoNum: number = 0;
         //下边放本地自测数据
         // private __iData: WhaleUnitInfo = {skin:"0", followId:0, attendant:[], kID:1, x:3800, y:0, angle:0, speed:false, mapId:1}
-        
+        private _unitList:HashMap<whaleUnit>;
 
         constructor() { 
             super();
@@ -68,8 +66,8 @@ module UI {
         private _selfUnitInfoComplete() {
             //new自己
             this._iself = new whaleUnit(UnitInfoMgr.instance.selfInfo);
-            this._roleList = new HashMap();
-            this._roleList.set(this._iself.KID, this._iself);
+            this._unitList = new HashMap();
+            this._unitList.set(this._iself.KID, this._iself);
             //把元素给控制器
             this._mCtl = new MovementControl(this._map, this._iself);
             
@@ -116,11 +114,14 @@ module UI {
     
         /** 运动主逻辑 */
         private _move(x,y) {
-            this._mCtl.move(x, y);
+            this._mCtl.readyMove(x, y);
         }
 
         private _updateUnit(ids:Array<number>) 
         {
+            for(let i = 0; i < ids.length; i++) {
+                this._mCtl.doMove(ids[i]);
+            }
             
         }
 

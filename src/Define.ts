@@ -67,10 +67,10 @@ class HashMap<T>{
 
     get(key: string | number) {
         if(!this._data[key]) return null;
-        return this._data[key];
+        return <T>this._data[key];
     }
 
-    set(key: string | number, v: any) {
+    set(key: string | number, v: T) {
         this._data[key] = v;
     }
 

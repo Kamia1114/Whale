@@ -24,6 +24,13 @@ class baseUnit extends Laya.Sprite{
         
     }
 
+    //刷新同步显示跟逻辑坐标
+    public refreshPoint()
+    {
+        this._data.x = this.x;
+        this._data.y = this.y;
+    }
+
     public get iPoint(): Laya.Point {
         return new Laya.Point(this._data.x, this._data.y);
     }
