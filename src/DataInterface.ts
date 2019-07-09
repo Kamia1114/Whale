@@ -1,4 +1,4 @@
-interface WhaleUnitInfo extends UnitBaseInfo {
+interface WhaleUnitInfo extends BaseUnitInfo {
     /** 外形皮肤 */
     skin: string;
     /** 我跟随的id */
@@ -6,29 +6,23 @@ interface WhaleUnitInfo extends UnitBaseInfo {
     /** 我的跟随者 */
     attendant: Array<number>;
     /** 是否是我自己 */
-    isSelf: boolean;
-}
-
-interface UnitBaseInfo {
-    /** 单位id */
-    kID: number;
-    /** 单位位置 */
-    x: number;
-    y: number;
+    // isSelf: boolean;
     /** 单位角度 分割36份 0-35 */
     angle: number;
-    /** 加速度 */
-    // inertia: number;
-    /** 当前速度 */
-    speed: boolean;
-    /** map ID */
-    mapId: number;
+    /** 当前速度 0常速 1加速 */
+    speed: number;
+    /** 昵称 */
+    charName:"";
 }
 
-interface WhaleShortInfo {
+interface BaseUnitInfo {
     /** 单位id */
     kID: number;
     /** 单位位置 */
     x: number;
     y: number;
+    /** 加速度 */
+    // inertia: number;
+    /** map ID */
+    mapId: number;
 }

@@ -1,5 +1,11 @@
 var UnitInfoMgr = /** @class */ (function () {
     function UnitInfoMgr() {
+        /** 自己 */
+        this._selfUnit = { skin: "", followId: 0, attendant: [], isSelf: false, kID: 0, x: 0, y: 0, angle: 0, speed: false, mapId: 1 };
+        /** 简短信息 */
+        this._mapUnitInfo = new HashMap();
+        /** 周围用户详情信息 */
+        this._sideUnitInfo = new HashMap();
     }
     Object.defineProperty(UnitInfoMgr, "instance", {
         get: function () {
@@ -39,11 +45,11 @@ var UnitInfoMgr = /** @class */ (function () {
     };
     UnitInfoMgr.prototype.updateMapDetailUnitInfo = function ($info) {
         console.log("updateMapDetailUnitInfo");
-        if (!this._sideUnitInfo) {
-            this._sideUnitInfo = new HashMap();
-        }
         var kIDs = [];
         for (var i = 0; i < $info.length; i++) {
+            if ($info[i].kId == PlayerInfoMgr.instance.myOppID) {
+                this.updateMyInfo($info[i]);
+            }
             var unitInfo = this._sideUnitInfo.get($info[i].kId);
             if (!unitInfo)
                 unitInfo = { skin: "", followId: 0, attendant: [], isSelf: false, kID: 0, x: 0, y: 0, angle: 0, speed: false, mapId: 1 };

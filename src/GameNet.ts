@@ -96,7 +96,7 @@ class GeGameNet extends Laya.EventDispatcher {
      * 请求自己个人信息，几条动态之类的
      */
     public getSelfInfo() {
-        let oppid = PlayerInfoMgr.instance.myOppID
+        let oppid = PlayerInfoMgr.instance.myOppID;
         var param = {
             cmd: S_EVENT.PLAYER_INFO,
             oppid: oppid
@@ -108,8 +108,8 @@ class GeGameNet extends Laya.EventDispatcher {
      * 自己的<・)))><<信息
      */
     public getSelfUnitInfo() {
-        let kId = PlayerInfoMgr.instance.kID;
-        this.getUnitDetailInfo([kId]);
+        let kID = PlayerInfoMgr.instance.kID;
+        this.getUnitDetailInfo([kID]);
     }
 
     /**
@@ -164,18 +164,23 @@ class GeGameNet extends Laya.EventDispatcher {
         console.log("收到消息:" + data.cmd);
         switch (data.cmd) {
             case G_EVENT.PLAYER_INFO: 
-                data.info = {skin:"0", followId:0, attendant:[], isSelf:true, kID:1, x:3800, y:0, angle:0, speed:false, mapId:1};
+                data.info = {kID:1, charName:"cirno", sex:1, popNum:5, word:"与其感慨路难行，不如马上出发"};
                 PlayerInfoMgr.instance.updatePlayerInfo(data.info);
+                client.loginStep = EnumLoginType.SelfInfo_COMPLETED;
                 break;
             case G_EVENT.MAP_UNIT_SHORT_INFO:
                 UnitInfoMgr.instance.updateMapUnitInfo(data.info);
                 break;
             case G_EVENT.MAP_UNIT_DETAIL_INFO:
+                data.info = {
+                    detailInfo:[{kID:1, x:3800, y: 0, angle: 0, speed: false, mapId:1, skin:"", followId:0, attendant:[]}], 
+                    simpleInfo:[{kID:2, x: 4200, y: 300, angle: 0, speed: false}]
+                };
                 UnitInfoMgr.instance.updateMapDetailUnitInfo(data.info);
                 break;
             case G_EVENT.UNIT_MOVE_INFO:
-                if(data.kId == PlayerInfoMgr.instance.kID) return;
-                UnitInfoMgr.instance.updateMapDetailUnitInfo([data.info]);
+                if(data.kID == PlayerInfoMgr.instance.kID) return;
+                // UnitInfoMgr.instance.updateMapDetailUnitInfo([data.info]);
             default:
                 gUIMgr.LayaStageEvent(data.cmd, data.info);
                 break;

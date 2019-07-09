@@ -51,15 +51,15 @@ class MovementControl{
         if (UnitInfoMgr.instance.selfInfo.angle == angle) return;
         UnitInfoMgr.instance.selfInfo.angle = angle;
         this._doMove(x, y, angle, PlayerInfoMgr.instance.kID);
-        gNet.sendMovementAction(angle);
+        // gNet.sendMovementAction(angle);
     }
     
     //显示上的移动信息
-    private _doMove(x:number, y:number, angle:number, kId: number): void
+    private _doMove(x:number, y:number, angle:number, kID: number): void
     {
         let targetP = GeTool.getTargetPoint(new Laya.Point(x,y), angle);
         console.log(`targetP: x: ${targetP.x}, y: ${targetP.y}` );
-        this._uSelf
+        this._uSelf.gotoPoint(targetP);
     }
 
 

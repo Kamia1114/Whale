@@ -65,22 +65,25 @@ class Main {
     public set loginStep(val:number) {
         console.log(val);
         switch(val) {
-            case EnumLoginType.Login_CONNECTED:
-                //网络连上了，下一步
-                console.log("login complete");
-                break;
-            case EnumLoginType.Config_COMPLETED:
-                //资源加载完毕
-                console.log("config complete");
+            case EnumLoginType.WX_CONNECTED:
+                //跟微信授权完成 开始游戏资源加载
+                gResMgr.startLoading();
                 break;
             case EnumLoginType.Resource_COMPLETED:
-                //资源加载完毕 可以进去了
+                //资源加载完毕 连接服务器
                 console.log("Resource complete");
-                gUIMgr.openWnd(WT.GAMESCENE_WND);
+                gNet.connect();
                 break;
+            case EnumLoginType.Login_CONNECTED:
+                //网络连接成功了 请求个人信息
+                console.log("login complete");
+                gNet.getSelfInfo();
+                break;
+            case EnumLoginType.SelfInfo_COMPLETED:
+                console.log("getInfo complete");
+                gUIMgr.openWnd(WT.GAMESCENE_WND);
             case EnumLoginType.Enter_COMPLETED:
-                //走到这 游戏界面进去了
-                console.log("enter complete");
+                //收到个人信息 进主界面
                 //整个游戏就在这个计时器里运行
                 Laya.timer.loop(Define.FrameTime, this, this.updateTime);
                 break;

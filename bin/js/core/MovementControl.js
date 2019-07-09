@@ -35,7 +35,7 @@ var MovementControl = /** @class */ (function () {
             return;
         UnitInfoMgr.instance.selfInfo.angle = angle;
         this._doMove(x, y, angle, PlayerInfoMgr.instance.kID);
-        gNet.sendMovementAction(angle);
+        // gNet.sendMovementAction(angle);
     };
     //显示上的移动信息
     MovementControl.prototype._doMove = function (x, y, angle, kId) {

@@ -5,7 +5,7 @@ class PlayerInfoMgr{
     private _kID:number;
     //角色名字
     private _charName:string;
-    //性别
+    //性别 0女， 1男
     private _sex:number;
     //气泡数量
     private _popNum:number;
@@ -26,7 +26,7 @@ class PlayerInfoMgr{
         this._kID = info.kID;
         this._charName = info.charName;
         this._sex = info.sex;
-        this._popNum = info.v;
+        this._popNum = info.popNum;
         this._word = info.word;
         gUIMgr.LayaStageEvent(G_EVENT.PLAYER_INFO);
     }

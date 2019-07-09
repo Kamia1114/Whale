@@ -33,12 +33,15 @@ const EnumLayerName = {
 
 /** 登录状态 */
 enum EnumLoginType {
+    WX_CONNECTED,
     /** 网络接上了 */
     Login_CONNECTED,
     /** 配置加载完毕 */
-    Config_COMPLETED,
+    // Config_COMPLETED,
     /** 资源加载完毕 */
     Resource_COMPLETED,
+    /** 收到个人信息 */
+    SelfInfo_COMPLETED,
     /** 界面进去了 */
     Enter_COMPLETED,
     /** 玩家点了开始 */

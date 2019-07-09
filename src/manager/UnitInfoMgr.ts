@@ -1,11 +1,11 @@
 class UnitInfoMgr{
     private static _instance: UnitInfoMgr;
     /** 自己 */
-    private _selfUnit: WhaleUnitInfo;
+    private _selfUnit: WhaleUnitInfo = {skin:"", followId:0, attendant:[], kID:0, x:0, y:0, angle:0, speed:0, mapId:1, charName:""};
     /** 简短信息 */
-    private _mapUnitInfo: HashMap<WhaleShortInfo>;
+    private _mapUnitInfo: HashMap<BaseUnitInfo> = new HashMap();
     /** 周围用户详情信息 */
-    private _sideUnitInfo: HashMap<WhaleUnitInfo>;
+    private _sideUnitInfo: HashMap<WhaleUnitInfo> = new HashMap();
 
     static get instance(): UnitInfoMgr {
         !this._instance && (this._instance = new UnitInfoMgr());
@@ -25,8 +25,8 @@ class UnitInfoMgr{
         }
     }
 
-    public get selfInfo(): WhaleUnitInfo
-    {
+
+    public get selfInfo(): WhaleUnitInfo {
         return this._selfUnit;
     }
 
@@ -35,28 +35,39 @@ class UnitInfoMgr{
         this._selfUnit.y = p.y;
     }
 
-    public updateMapUnitInfo(data: Array<WhaleShortInfo>) {
+    public updateMapUnitInfo(data: Array<BaseUnitInfo>) {
         console.log("updateMapUnitInfo", data);
         //下边计算多少范围内的数据需要请求详情信息
         
     }
 
-    public updateMapDetailUnitInfo($info: Array<any>) {
+    public updateMapDetailUnitInfo($info: {detailInfo:Array<any>,simpleInfo:Array<any>}) {
         console.log("updateMapDetailUnitInfo");
-        if(!this._sideUnitInfo) {
-            this._sideUnitInfo = new HashMap();
-        }
         let kIDs:Array<number> = [];
-        for(let i = 0; i < $info.length; i++) {
-            let unitInfo:WhaleUnitInfo = this._sideUnitInfo.get($info[i].kId);
-            if(!unitInfo) unitInfo =  {skin:"", followId:0, attendant:[], isSelf:false, kID:0, x:0, y:0, angle:0, speed:false, mapId:1};
+        let infoList = $info.detailInfo.concat($info.simpleInfo);
+
+        for(let i = 0; i < infoList.length; i++) {
+            if($info[i].kID == PlayerInfoMgr.instance.myOppID) {
+                this.updateMyInfo($info[i]);
+                gUIMgr.LayaStageEvent(EVENT.MY_UNIT_INFO);
+                continue;
+            }
+            let unitInfo:WhaleUnitInfo = this._sideUnitInfo.get($info[i].kID);
+            if(!unitInfo) unitInfo =  {kID:0, x:0, y:0, angle:0, speed:0, mapId:1, charName:"", skin:"", followId:0, attendant:[]};
             for (let key in $info[i]) {
                 unitInfo[key] = $info[i][key];
             }
-            this._sideUnitInfo.set($info[i].kId, unitInfo);
+            this._sideUnitInfo.set($info[i].kID, unitInfo);
             kIDs.push(unitInfo.kID);
             //加入到对应map里
         }
-        kIDs.length>0 && gUIMgr.LayaStageEvent(G_EVENT.UNIT_MOVE_INFO, kIDs); //触发移动更新
+        kIDs.length>0 && gUIMgr.LayaStageEvent(EVENT.UNIT_MOVE_INFO, kIDs); //触发移动更新
+    }
+
+    public updateMoveInfo($info:{kID:number, x:number, y:number, speed:number}) {
+        let unitInfo:WhaleUnitInfo = this._sideUnitInfo.get($info.kID);
+        for (let key in $info) {
+            unitInfo[key] = $info[key];
+        }
     }
 }

@@ -160,6 +160,7 @@ var GeGameNet = /** @class */ (function (_super) {
         console.log("收到消息:" + data.cmd);
         switch (data.cmd) {
             case G_EVENT.PLAYER_INFO:
+                data.info = { skin: "0", followId: 0, attendant: [], isSelf: true, kID: 1, x: 3800, y: 0, angle: 0, speed: false, mapId: 1 };
                 PlayerInfoMgr.instance.updatePlayerInfo(data.info);
                 break;
             case G_EVENT.MAP_UNIT_SHORT_INFO:
